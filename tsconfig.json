@@ -1,11 +1,16 @@
 {
+  "include": ["src/**/*.ts"],
+  "exclude": ["node_modules"],
   "compilerOptions": {
-    "rootDir": "src",
+    "rootDir": "./src",
+    "outDir": "./dist",
     "target": "ES2020",
-    "module": "commonjs",
-    "baseUrl": ".",
-    "paths": { "@/*": ["src/*"] },
-    "outDir": "dist/",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "baseUrl": "./",
+    // "paths": {
+    //   "@/*": ["./src/*"]
+    // },
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,

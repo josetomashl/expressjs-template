@@ -3,8 +3,9 @@ import compression from 'compression';
 import cors from 'cors';
 import helmet from 'helmet';
 
-import corsOptions from '@/configs/cors-options';
-import router from '@/routes/rooter';
+import corsOptions from './configs/cors-options';
+import router from './routes/router';
+import { environment } from './configs/environment';
 
 const app = express();
 
@@ -26,4 +27,4 @@ app.use((err: ErrorRequestHandler, _req: Request, res: Response) => {
 // Main router
 app.use('/api', router);
 
-app.listen(process.env.PORT, () => console.log(`Server available on port ${process.env.PORT}.`));
+app.listen(environment.port, () => console.log(`Server available on port ${environment.port}.`));

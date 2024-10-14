@@ -1,5 +1,5 @@
 import express, { type NextFunction, type Request, type Response } from 'express';
-import logger from '@/middlewares/logger';
+import logger from '../middlewares/logger';
 
 const router = express.Router();
 
