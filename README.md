@@ -22,6 +22,24 @@
 npm install
 ```
 
+## Start application
+
+```sh
+npm run dev
+```
+
+## Build application
+
+```sh
+npm run build
+```
+
+## Run linter
+
+```sh
+npm run lint
+```
+
 ## Run tests
 
 ```sh
