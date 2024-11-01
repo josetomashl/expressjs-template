@@ -1,3 +1,6 @@
+import dotenv from 'dotenv';
+dotenv.config();
+
 const environment = {
   mode: process.env.NODE_ENV,
   port: Number(process.env.PORT),

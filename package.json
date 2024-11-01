@@ -5,7 +5,7 @@
   "main": "src/main.ts",
   "scripts": {
     "dev": "nodemon src/main.ts",
-    "prod": "node dist/main.js",
+    "prod": "node --env-file=.env dist/main.js",
     "build": "tsc",
     "lint": "eslint .",
     "test": "jest"
@@ -23,6 +23,7 @@
   "dependencies": {
     "compression": "^1.7.5",
     "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
     "express": "^5.0.1",
     "helmet": "^8.0.0",
     "jsonwebtoken": "^9.0.2"
