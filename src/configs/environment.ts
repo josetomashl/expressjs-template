@@ -1,10 +1,7 @@
-import { config } from 'dotenv';
-config();
-
 const environment = {
-  env: process.env.NODE_ENV,
-  port: process.env.PORT,
-  jwtSecret: process.env.JWT_SECRET as string
+  mode: process.env.NODE_ENV,
+  port: Number(process.env.PORT),
+  jwtSecret: String(process.env.JWT_SECRET)
 };
 
 export default environment;

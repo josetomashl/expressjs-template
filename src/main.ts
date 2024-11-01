@@ -6,14 +6,13 @@ import helmet from 'helmet';
 import corsOptions from './configs/cors-options';
 import router from './routes/router';
 import environment from './configs/environment';
-import helmetOptions from './configs/helmet-options';
 import compressionOptions from './configs/compression-options';
 
 const app = express();
 
 // Security & performance config
 app.disable('x-powered-by');
-app.use(helmet(helmetOptions));
+app.use(helmet());
 app.use(compression(compressionOptions));
 app.use(cors(corsOptions));
 
