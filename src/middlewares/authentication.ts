@@ -1,5 +1,5 @@
 import { verifyToken } from '../utils/jwt';
-import { type NextFunction, type Request, type Response } from 'express';
+import type { NextFunction, Request, Response } from 'express';
 
 export default function authenticationMiddleware(req: Request, res: Response, next: NextFunction) {
   if (req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {

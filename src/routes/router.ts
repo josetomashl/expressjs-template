@@ -1,5 +1,6 @@
 import express, { type NextFunction, type Request, type Response } from 'express';
 import logger from '../middlewares/logger';
+import authRouter from './authRouter';
 
 const router = express.Router();
 
@@ -13,5 +14,6 @@ router.use((_req: Request, res: Response, next: NextFunction) => {
 router.use(logger);
 
 // Add routes here
+router.use('/auth', authRouter);
 
 export default router;

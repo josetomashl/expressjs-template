@@ -1,4 +1,4 @@
-import express, { type ErrorRequestHandler, type Request, type Response } from 'express';
+import express from 'express';
 import compression from 'compression';
 import cors from 'cors';
 import helmet from 'helmet';
@@ -18,12 +18,6 @@ app.use(cors(corsOptions));
 
 // JSON body parser
 app.use(express.json());
-
-// Error handler
-app.use((err: ErrorRequestHandler, _req: Request, res: Response) => {
-  console.warn('Error: ', err);
-  res.status(500).send('Internal Server Error');
-});
 
 // Main router
 app.use('/api', router);
