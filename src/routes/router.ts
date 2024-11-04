@@ -13,7 +13,10 @@ router.use((_req: Request, res: Response, next: NextFunction) => {
 // Custom requests logger
 router.use(logger);
 
-// Add routes here
+router.get('/status', (_req: Request, res: Response) => {
+  res.status(200).json({ status: 'ok' });
+});
 router.use('/auth', authRouter);
+// Add routes here, private routes add auth middleware before passing router
 
 export default router;
