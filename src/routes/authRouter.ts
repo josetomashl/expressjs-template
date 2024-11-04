@@ -1,12 +1,12 @@
 import express from 'express';
 
 import validateData from '../middlewares/validation';
-import { loginConstraint } from '../constraints/authConstraints';
+import { loginConstraint, registerConstraint } from '../constraints/authConstraints';
 import { login, register } from '../controllers/authController';
 
 const authRouter = express.Router();
 
 authRouter.post('/login', validateData(loginConstraint), login);
-authRouter.post('/register', validateData(loginConstraint), register);
+authRouter.post('/register', validateData(registerConstraint), register);
 
 export default authRouter;
