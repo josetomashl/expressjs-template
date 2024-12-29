@@ -1,7 +1,7 @@
-import { verifyToken } from '../utils/jwt';
 import type { NextFunction, Request, Response } from 'express';
+import { verifyToken } from '../utils/jwt';
 
-export default function authenticationMiddleware(req: Request, res: Response, next: NextFunction) {
+export function authenticator(req: Request, res: Response, next: NextFunction) {
   if (req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
     const token = req.headers.authorization.split(' ')[1];
     if (token && token.length === 256) {

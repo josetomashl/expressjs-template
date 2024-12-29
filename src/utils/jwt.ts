@@ -1,13 +1,13 @@
 import jwt from 'jsonwebtoken';
-import environment from '../configs/environment';
+import { environment } from '../configs/environment';
 
 export type TokenPayload = {
-  //! MUST MATCH CustomRequest.d.ts file
+  //! MUST MATCH src/configs/CustomRequest.d.ts file
   userId: string;
 };
 
 export function createToken(payload: TokenPayload): string {
-  return jwt.sign(payload, environment.jwtSecret, {
+  return jwt.sign(payload, environment.JWT_SECRET, {
     allowInsecureKeySizes: false,
     algorithm: 'RS256',
     expiresIn: '24h'
@@ -20,7 +20,7 @@ export function verifyToken(
   onSuccessCallback: (decodedValue: string) => void
 ) {
   try {
-    jwt.verify(token, environment.jwtSecret, { algorithms: ['RS256'], clockTolerance: 60 }, function (err, decoded) {
+    jwt.verify(token, environment.JWT_SECRET, { algorithms: ['RS256'], clockTolerance: 60 }, function (err, decoded) {
       if (err) {
         return onErrorCallback(err.message);
       } else if (decoded) {

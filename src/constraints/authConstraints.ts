@@ -1,5 +1,5 @@
-import regex from '../constants/regex';
 import { z } from 'zod';
+import { regex } from '../constants/regex';
 
 export const loginConstraint = z.object({
   email: z.string().email(),

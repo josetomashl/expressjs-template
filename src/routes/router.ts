@@ -1,6 +1,6 @@
 import express, { type NextFunction, type Request, type Response } from 'express';
-import logger from '../middlewares/logger';
-import authRouter from './authRouter';
+import { logger } from '../middlewares/logger';
+import { authRouter } from './authRouter';
 
 const router = express.Router();
 
@@ -19,4 +19,4 @@ router.get('/status', (_req: Request, res: Response) => {
 router.use('/auth', authRouter);
 // Add routes here, private routes add auth middleware before passing router
 
-export default router;
+export { router };

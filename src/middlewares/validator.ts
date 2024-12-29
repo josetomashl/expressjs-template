@@ -1,7 +1,7 @@
-import type { Request, Response, NextFunction } from 'express';
+import type { NextFunction, Request, Response } from 'express';
 import { ZodError, type ZodTypeAny } from 'zod';
 
-export default function validateData(schema: ZodTypeAny) {
+export function validator(schema: ZodTypeAny) {
   return (req: Request, res: Response, next: NextFunction) => {
     try {
       schema.parse(req.body);

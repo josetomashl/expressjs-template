@@ -1,6 +1,6 @@
 import type { Response } from 'express';
 
-const staticOptions = {
+export const staticOptions = {
   dotfiles: 'ignore',
   etag: false,
   extensions: ['htm', 'html'],
@@ -11,5 +11,3 @@ const staticOptions = {
     res.set('x-timestamp', Date.now().toString());
   }
 };
-
-export default staticOptions;
