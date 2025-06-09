@@ -6,5 +6,5 @@ export interface User extends RowDataPacket {
   password: string;
   is_removed: boolean;
   created_at: Date;
-  updated_at: Date;
+  modified_at: Date | null;
 }

@@ -25,9 +25,12 @@ export class AuthController {
   }
 
   static async register(req: Request, res: Response) {
-    const { email, password } = req.body;
+    const { username, email, password } = req.body;
     try {
-      const user = await AuthService.register(email, password);
+      const user = await AuthService.register(username.trim(), email.trim(), password.trim());
+      if (!user) {
+        throw new Error('Error al crear el usuario wtf.');
+      }
       const token = createToken({ userId: user.id });
       res
         .cookie('access_token', token, {

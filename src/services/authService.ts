@@ -13,20 +13,20 @@ export class AuthService {
     throw new Error('Usuario o contraseña no válido.');
   }
 
-  static async register(email: string, password: string) {
+  static async register(username: string, email: string, password: string) {
     const existingUser = await AuthRepository.findByEmail(email);
-    if (!existingUser) {
-      try {
-        const hashedPassword = await bcrypt.hash(password, 10);
-        const user = await AuthRepository.create({ email, password: hashedPassword });
-        if (user) {
-          return user;
-        }
-        throw new Error('Error desconocido al crear el usuario.');
-      } catch (error) {
-        throw new Error(`Error al crear el usuario: ${error}`);
-      }
+    if (existingUser) {
+      throw new Error('Este email ya se encuentra en uso.');
     }
-    throw new Error('Este email ya se encuentra en uso.');
+    try {
+      const hashedPassword = await bcrypt.hash(password, 10);
+      const user = await AuthRepository.create(username, email, hashedPassword);
+      if (user) {
+        return user;
+      }
+      console.log('1a vez', user);
+    } catch (error) {
+      throw new Error(`Error al crear el usuario: ${error}`);
+    }
   }
 }

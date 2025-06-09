@@ -5,6 +5,6 @@ export const pool = createPool({
   port: process.env.DB_PORT ? parseInt(process.env.DB_PORT, 10) : 3306,
   database: process.env.DB_NAME || 'expressdb',
   user: process.env.DB_USER || 'root',
-  password: process.env.DB_PASSWORD || 'password',
+  password: process.env.DB_PASSWORD,
   decimalNumbers: true
 });

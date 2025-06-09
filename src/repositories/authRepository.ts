@@ -1,3 +1,4 @@
+import { randomUUID } from 'node:crypto';
 import { pool } from '../configs/database';
 import type { User } from '../models/User';
 
@@ -9,11 +10,14 @@ export class AuthRepository {
     return rows.length ? rows[0] : null;
   }
 
-  static async create(user: { email: string; password: string }): Promise<User | null> {
-    const [rows] = await pool.query<User[]>('INSERT INTO user (email, password) VALUES (?, ?);', [
-      user.email,
-      user.password
+  static async create(username: string, email: string, password: string): Promise<User | null> {
+    const uuid = randomUUID();
+    await pool.query('INSERT INTO user (id, username, email, password) VALUES (?, ?, ?, ?);', [
+      uuid,
+      username,
+      email,
+      password
     ]);
-    return rows.length ? rows[0] : null;
+    return await this.findByEmail(email);
   }
 }

@@ -1,33 +1,25 @@
 import type { NextFunction, Request, Response } from 'express';
-import { verifyToken } from '../utils/jwt';
+import { type TokenPayload, verifyToken } from '../utils/jwt';
 
 export function authenticator(req: Request, res: Response, next: NextFunction) {
-  if (req.headers.authorization?.startsWith('Bearer ')) {
-    const token = req.headers.authorization.split(' ')[1];
-    if (token && token.length === 256) {
-      verifyToken(
-        token,
-        (error) => {
-          res.status(401).json(error);
-        },
-        (value) => {
-          try {
-            const parsedValue = JSON.parse(value);
-            console.log('Parsed JWT value:', parsedValue);
-
-            req.auth = parsedValue;
-            res.locals.userId = parsedValue.userId;
-            next();
-            // TODO: try different approaches and see which of them works on the private controller & remove those wich does not work. Preference: auth --> locals
-          } catch {
-            res.status(401).json('Unauthorized');
-          }
+  const token = req.cookies.access_token;
+  if (token) {
+    verifyToken(
+      token,
+      (error) => {
+        res.status(401).json(error);
+      },
+      (value) => {
+        try {
+          const parsedValue = JSON.parse(value) as TokenPayload;
+          res.locals.userId = parsedValue.userId;
+          next();
+        } catch {
+          res.status(401).json({ error: 'Unauthorized' });
         }
-      );
-    } else {
-      res.status(401).json('Unauthorized');
-    }
+      }
+    );
   } else {
-    res.status(401).json('Unauthorized');
+    res.status(401).json({ error: 'Unauthorized. No token found on request.' });
   }
 }
