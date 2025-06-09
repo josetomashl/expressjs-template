@@ -2,7 +2,7 @@ import type { NextFunction, Request, Response } from 'express';
 import { verifyToken } from '../utils/jwt';
 
 export function authenticator(req: Request, res: Response, next: NextFunction) {
-  if (req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
+  if (req.headers.authorization?.startsWith('Bearer ')) {
     const token = req.headers.authorization.split(' ')[1];
     if (token && token.length === 256) {
       verifyToken(
@@ -13,6 +13,8 @@ export function authenticator(req: Request, res: Response, next: NextFunction) {
         (value) => {
           try {
             const parsedValue = JSON.parse(value);
+            console.log('Parsed JWT value:', parsedValue);
+
             req.auth = parsedValue;
             res.locals.userId = parsedValue.userId;
             next();

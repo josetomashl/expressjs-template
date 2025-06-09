@@ -1,4 +1,5 @@
 import compression from 'compression';
+import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import express from 'express';
 import helmet from 'helmet';
@@ -18,6 +19,7 @@ app.use(cors(corsOptions));
 
 // JSON body parser
 app.use(express.json());
+app.use(cookieParser());
 
 // Main router
 app.use('/api', router);
