@@ -33,7 +33,3 @@ export function verifyToken(
     return onErrorCallback('unexpected jwt error');
   }
 }
-
-export function refreshToken() {
-  // TODO refresh token on expired & valid tokens
-}
