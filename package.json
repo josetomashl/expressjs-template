@@ -7,8 +7,7 @@
     "dev": "nodemon src/main.ts",
     "prod": "node dist/main.js",
     "build": "tsc",
-    "lint": "eslint .",
-    "test": "jest"
+    "lint": "eslint ."
   },
   "repository": {
     "type": "git",

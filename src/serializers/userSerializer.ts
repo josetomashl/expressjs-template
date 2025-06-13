@@ -1,6 +1,13 @@
 import type { User } from '../models/User';
 
 export class UserSerializer {
+  static kv(users: User[]) {
+    return users.map((user) => ({
+      id: user.id,
+      username: user.username
+    }));
+  }
+
   static list(users: User[]) {
     return users.map((user) => ({
       id: user.id,
