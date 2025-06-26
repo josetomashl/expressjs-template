@@ -32,4 +32,10 @@ router.use('/auth', authRouter);
 router.use('/users', authenticator, userRouter);
 // Add routes here, private routes add auth middleware before passing router
 
+router.all(/.*/, (_req: Request, res: Response) => {
+  res.status(404).json({
+    error: 'Route Not Found'
+  });
+});
+
 export { router };
