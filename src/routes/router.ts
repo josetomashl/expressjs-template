@@ -19,13 +19,11 @@ router.get('/health', (_req: Request, res: Response) => {
   res.status(200).json({
     uptime: process.uptime(),
     timestamp: Date.now(),
-    message: 'Server is running',
-    status: 'ok',
     env: process.env.NODE_ENV,
     memoryUsage: process.memoryUsage(),
-    availableMemory: process.availableMemory(),
-    cpu: process.cpuUsage(),
-    nodeVersion: process.version
+    availableMemory: process.availableMemory,
+    cpuUsage: process.cpuUsage(),
+    versions: process.versions,
   });
 });
 router.use('/auth', authRouter);
@@ -34,7 +32,7 @@ router.use('/users', authenticator, userRouter);
 
 router.all(/.*/, (_req: Request, res: Response) => {
   res.status(404).json({
-    error: 'Route Not Found'
+    error: 'Route Not Found',
   });
 });
 

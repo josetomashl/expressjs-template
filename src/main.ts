@@ -11,6 +11,7 @@ import { environment } from './configs/environment';
 import { rateLimiterOptions } from './configs/rate-limiter-options';
 import { urlencodedOptions } from './configs/urlencoded-options';
 import { router } from './routes/router';
+import { killProcess } from './utils';
 
 const app = express();
 
@@ -30,3 +31,7 @@ app.use(cookieParser());
 app.use('/api', router);
 
 app.listen(environment.PORT, () => console.log(`Server available on port ${environment.PORT}.`));
+
+// Graceful shutdown
+process.on('SIGTERM', killProcess);
+process.on('SIGINT', killProcess);
