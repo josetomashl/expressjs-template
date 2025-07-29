@@ -1,0 +1,39 @@
+name: production deployment
+on: workflow_dispatch
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: '.nvmrc'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build project
+        run: npm run build
+
+      - name: copy file via ssh password
+        uses: appleboy/scp-action@v1
+        with:
+          host: ${{secrets.DEPLOY_HOST}}
+          username: ${{secrets.DEPLOY_USER}}
+          key: ${{secrets.DEPLOY_KEY}} # SSH private key contents
+          source: 'dist/, .env, package.json, package-lock.json, ecosystem.json'
+          target: ${{secrets.DEPLOY_FOLDER}}
+
+      - name: executing remote ssh commands using password
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{secrets.DEPLOY_HOST}}
+          username: ${{secrets.DEPLOY_USER}}
+          key: ${{secrets.DEPLOY_KEY}}
+          script: |
+            cd ${{secrets.DEPLOY_FOLDER}}
+            npm install --production
+            pm2 startOrRestart ecosystem.json --only production-api
