@@ -2,7 +2,7 @@ import type { NextFunction, Request, Response } from 'express';
 import { type TokenPayload, verifyToken } from '../utils/jwt';
 
 export function authenticator(req: Request, res: Response, next: NextFunction) {
-  const token = req.cookies.access_token;
+  const token = req.headers.authorization?.trim();
   if (token) {
     verifyToken(
       token,
@@ -20,6 +20,6 @@ export function authenticator(req: Request, res: Response, next: NextFunction) {
       }
     );
   } else {
-    res.status(401).json({ error: 'Unauthorized. No token found on request.' });
+    res.status(401).json({ error: 'Unauthorized. No token found on request headers.' });
   }
 }

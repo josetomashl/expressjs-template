@@ -20,13 +20,20 @@ export function verifyToken(
   onSuccessCallback: (decodedValue: string) => void
 ) {
   try {
-    jwt.verify(token, environment.JWT_SECRET, { clockTolerance: 60 }, function (err, decoded) {
+    if (!token.includes(' ')) {
+      return onErrorCallback('Invalid token');
+    }
+    const [type, value] = token.split(' ');
+    if (type !== 'Bearer' || !value) {
+      return onErrorCallback('Invalid token');
+    }
+    jwt.verify(value, environment.JWT_SECRET, { clockTolerance: 60 }, function (err, decoded) {
       if (err) {
         return onErrorCallback(err.message);
       } else if (decoded) {
         return onSuccessCallback(typeof decoded === 'string' ? decoded : JSON.stringify(decoded));
       } else {
-        return onErrorCallback('unknown jwt error');
+        return onErrorCallback('Unknown jwt error');
       }
     });
   } catch {
