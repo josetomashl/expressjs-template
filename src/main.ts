@@ -10,6 +10,7 @@ import { corsOptions } from './configs/cors-options';
 import { environment } from './configs/environment';
 import { rateLimiterOptions } from './configs/rate-limiter-options';
 import { urlencodedOptions } from './configs/urlencoded-options';
+import { errorHandler } from './middlewares/error-handler';
 import { router } from './routes/router';
 import { killProcess } from './utils';
 
@@ -29,6 +30,9 @@ app.use(cookieParser());
 
 // Main router
 app.use('/api', router);
+
+// Error handler
+app.use(errorHandler);
 
 app.listen(environment.PORT, () => console.log(`Server available on port ${environment.PORT}.`));
 

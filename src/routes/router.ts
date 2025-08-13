@@ -1,10 +1,10 @@
-import express, { type NextFunction, type Request, type Response } from 'express';
+import { Router, type NextFunction, type Request, type Response } from 'express';
 import { authenticator } from '../middlewares/authenticator';
 import { logger } from '../middlewares/logger';
 import { authRouter } from './authRouter';
 import { userRouter } from './userRouter';
 
-const router = express.Router();
+const router = Router();
 
 // Common json header
 router.use((_req: Request, res: Response, next: NextFunction) => {
@@ -23,7 +23,7 @@ router.get('/health', (_req: Request, res: Response) => {
     memoryUsage: process.memoryUsage(),
     availableMemory: process.availableMemory,
     cpuUsage: process.cpuUsage(),
-    versions: process.versions,
+    versions: process.versions
   });
 });
 router.use('/auth', authRouter);
@@ -32,7 +32,7 @@ router.use('/users', authenticator, userRouter);
 
 router.all(/.*/, (_req: Request, res: Response) => {
   res.status(404).json({
-    error: 'Route Not Found',
+    error: 'Route Not Found'
   });
 });
 
