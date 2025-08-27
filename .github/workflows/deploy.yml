@@ -6,7 +6,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - uses: actions/setup-node@v4
         with:
           node-version-file: '.nvmrc'
@@ -19,7 +19,7 @@ jobs:
         run: npm run build
 
       - name: copy file via ssh password
-        uses: appleboy/scp-action@v1
+        uses: appleboy/scp-action@master
         with:
           host: ${{secrets.DEPLOY_HOST}}
           username: ${{secrets.DEPLOY_USER}}
