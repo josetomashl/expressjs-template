@@ -3,10 +3,10 @@ import { UserRepository } from '../repositories/userRepository';
 import { InMemoryCache } from '../utils/cache';
 
 export class UserService {
-  private static cache = new InMemoryCache();
+  private static cache = new InMemoryCache<User[]>();
 
   static async getAll() {
-    let list = this.cache.get<User[]>('users-list');
+    let list = this.cache.get('users-list');
     if (!list) {
       // console.log('getting list from user repo');
       list = await UserRepository.findAll();
