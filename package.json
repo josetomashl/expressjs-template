@@ -43,7 +43,7 @@
     "@types/node": "^24.3.1",
     "@types/nodemailer": "^7.0.1",
     "eslint": "^9.35.0",
-    "globals": "^16.3.0",
+    "globals": "^16.4.0",
     "nodemon": "^3.1.10",
     "ts-node": "^10.9.2",
     "typescript": "^5.9.2",
