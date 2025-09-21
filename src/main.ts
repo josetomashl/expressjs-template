@@ -16,6 +16,9 @@ import { killProcess } from './utils';
 
 const app = express();
 
+// Serve public files
+app.use(express.static('public'));
+
 // Security & performance config
 app.disable('x-powered-by');
 app.use(helmet());
