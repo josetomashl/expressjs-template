@@ -30,10 +30,10 @@
     "jsonwebtoken": "^9.0.2",
     "mysql2": "^3.15.0",
     "nodemailer": "^7.0.6",
-    "zod": "^4.1.9"
+    "zod": "^4.1.11"
   },
   "devDependencies": {
-    "@eslint/js": "^9.35.0",
+    "@eslint/js": "^9.36.0",
     "@types/bcrypt": "^6.0.0",
     "@types/compression": "^1.8.1",
     "@types/cookie-parser": "^1.4.9",
@@ -42,7 +42,7 @@
     "@types/jsonwebtoken": "^9.0.10",
     "@types/node": "^24.5.2",
     "@types/nodemailer": "^7.0.1",
-    "eslint": "^9.35.0",
+    "eslint": "^9.36.0",
     "globals": "^16.4.0",
     "nodemon": "^3.1.10",
     "ts-node": "^10.9.2",
