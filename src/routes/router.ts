@@ -2,7 +2,8 @@ import { Router, type NextFunction, type Request, type Response } from 'express'
 import { authenticator } from '../middlewares/authenticator';
 import { logger } from '../middlewares/logger';
 import { authRouter } from './authRouter';
-import { userRouter } from './userRouter';
+import { postsRouter } from './postsRouter';
+import { usersRouter } from './usersRouter';
 
 const router = Router();
 
@@ -27,7 +28,8 @@ router.get('/health', (_req: Request, res: Response) => {
   });
 });
 router.use('/auth', authRouter);
-router.use('/users', authenticator, userRouter);
+router.use('/users', authenticator, usersRouter);
+router.use('/posts', authenticator, postsRouter);
 // Add routes here, private routes add auth middleware before passing router
 
 router.all(/.*/, (_req: Request, res: Response) => {

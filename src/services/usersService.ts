@@ -2,7 +2,7 @@ import type { User } from '../models/User';
 import { UserRepository } from '../repositories/userRepository';
 import { InMemoryCache } from '../utils/cache';
 
-export class UserService {
+export class UsersService {
   private static cache = new InMemoryCache<User[]>();
 
   static async getAll() {

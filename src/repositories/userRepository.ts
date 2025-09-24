@@ -4,14 +4,14 @@ import type { User } from '../models/User';
 
 export class UserRepository {
   static async findAll(): Promise<User[]> {
-    const [rows] = await pool.query<User[]>('SELECT * FROM user;');
+    const [rows] = await pool.query<User[]>('SELECT * FROM users;');
     return rows;
   }
 
   static async findPaginated(page: number, limit: number): Promise<Pagination<User>> {
     const offset = (page - 1) * limit;
     const [rows] = await pool.query<User[]>(
-      'SELECT *, (SELECT COUNT(*) FROM user) AS total FROM user LIMIT ? OFFSET ?;',
+      'SELECT *, (SELECT COUNT(*) FROM users) AS total FROM users LIMIT ? OFFSET ?;',
       [limit, offset]
     );
     const total = rows.length > 0 ? rows[0].total : 0;
