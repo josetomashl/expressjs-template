@@ -4,41 +4,52 @@ import cors from 'cors';
 import express, { json, urlencoded } from 'express';
 import rateLimit from 'express-rate-limit';
 import helmet from 'helmet';
+import 'reflect-metadata';
 
 import { compressionOptions } from './configs/compression-options';
 import { corsOptions } from './configs/cors-options';
 import { environment } from './configs/environment';
 import { rateLimiterOptions } from './configs/rate-limiter-options';
 import { urlencodedOptions } from './configs/urlencoded-options';
+import { AppDataSource } from './database/data-source';
 import { errorHandler } from './middlewares/error-handler';
 import { router } from './routes/router';
 import { killProcess } from './utils';
 
-const app = express();
+AppDataSource.initialize()
+  .then(() => {
+    console.log('Data Source has been initialized!');
+    bootstrap();
+  })
+  .catch((error) => console.error('TypeORM connection error: ', error));
 
-// Serve public files
-app.use(express.static('public'));
+function bootstrap() {
+  const app = express();
 
-// Security & performance config
-app.disable('x-powered-by');
-app.use(helmet());
-app.use(compression(compressionOptions));
-app.use(cors(corsOptions));
-app.use(rateLimit(rateLimiterOptions));
+  // Serve public files
+  app.use(express.static('public'));
 
-// parsers
-app.use(json());
-app.use(urlencoded(urlencodedOptions));
-app.use(cookieParser());
+  // Security & performance config
+  app.disable('x-powered-by');
+  app.use(helmet());
+  app.use(compression(compressionOptions));
+  app.use(cors(corsOptions));
+  app.use(rateLimit(rateLimiterOptions));
 
-// Main router
-app.use('/api', router);
+  // parsers
+  app.use(json());
+  app.use(urlencoded(urlencodedOptions));
+  app.use(cookieParser());
 
-// Error handler
-app.use(errorHandler);
+  // Main router
+  app.use('/api', router);
 
-app.listen(environment.PORT, () => console.log(`Server available on port ${environment.PORT}.`));
+  // Error handler
+  app.use(errorHandler);
 
-// Graceful shutdown
-process.on('SIGTERM', killProcess);
-process.on('SIGINT', killProcess);
+  app.listen(environment.PORT, () => console.log(`Server available on port ${environment.PORT}.`));
+
+  // Graceful shutdown
+  process.on('SIGTERM', killProcess);
+  process.on('SIGINT', killProcess);
+}

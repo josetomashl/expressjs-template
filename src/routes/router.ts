@@ -1,4 +1,5 @@
 import { Router, type NextFunction, type Request, type Response } from 'express';
+
 import { authenticator } from '../middlewares/authenticator';
 import { logger } from '../middlewares/logger';
 import { authRouter } from './authRouter';
@@ -27,10 +28,11 @@ router.get('/health', (_req: Request, res: Response) => {
     versions: process.versions
   });
 });
+
 router.use('/auth', authRouter);
 router.use('/users', authenticator, usersRouter);
 router.use('/posts', authenticator, postsRouter);
-// Add routes here, private routes add auth middleware before passing router
+// TODO: tags router, controller, service & repository
 
 router.all(/.*/, (_req: Request, res: Response) => {
   res.status(404).json({

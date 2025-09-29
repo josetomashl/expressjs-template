@@ -1,4 +1,5 @@
 import type { Request, Response } from 'express';
+
 import { AuthSerializer } from '../serializers/authSerializer';
 import { AuthService } from '../services/authService';
 import { createToken } from '../utils/jwt';
@@ -25,11 +26,11 @@ export class AuthController {
   }
 
   static async register(req: Request, res: Response) {
-    const { username, email, password } = req.body;
+    const { name, surname, email, password } = req.body;
     try {
-      const user = await AuthService.register(username.trim(), email.trim(), password.trim());
+      const user = await AuthService.register(name.trim(), surname.trim(), email.trim(), password.trim());
       if (!user) {
-        throw new Error('Error al crear el usuario wtf.');
+        throw new Error('No se ha podido crear el usuario.');
       }
       const token = createToken({ userId: user.id });
       res

@@ -1,11 +1,15 @@
-import bcrypt from 'bcrypt';
-import { AuthRepository } from '../repositories/authRepository';
+import { compare, hash } from 'bcrypt';
+
+import { AppDataSource } from '../database/data-source';
+import { UserEntity } from '../database/entities/User';
 
 export class AuthService {
+  private static usersRepository = AppDataSource.getRepository(UserEntity);
+
   static async login(email: string, password: string) {
-    const user = await AuthRepository.findByEmail(email);
+    const user = await this.usersRepository.findOneBy({ email });
     if (user) {
-      const isValid = await bcrypt.compare(password, user.password);
+      const isValid = await compare(password, user.password);
       if (isValid) {
         return user;
       }
@@ -13,18 +17,16 @@ export class AuthService {
     throw new Error('Usuario o contraseña no válido.');
   }
 
-  static async register(username: string, email: string, password: string) {
-    const existingUser = await AuthRepository.findByEmail(email);
+  static async register(name: string, surname: string, email: string, password: string) {
+    const existingUser = await this.usersRepository.findOneBy({ email });
     if (existingUser) {
       throw new Error('Este email ya se encuentra en uso.');
     }
     try {
-      const hashedPassword = await bcrypt.hash(password, 10);
-      const user = await AuthRepository.create(username, email, hashedPassword);
-      if (user) {
-        return user;
-      }
-      console.log('1a vez', user);
+      const hashedPassword = await hash(password, 10);
+      const user = this.usersRepository.create({ name, surname, email, password: hashedPassword });
+      const res = await this.usersRepository.save(user);
+      return res;
     } catch (error) {
       throw new Error(`Error al crear el usuario: ${error}`);
     }

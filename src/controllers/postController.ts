@@ -1,6 +1,8 @@
 import type { Request, Response } from 'express';
+
 import { PostsSerializer } from '../serializers/postsSerializer';
 import { PostsService } from '../services/postsService';
+import { getQueryParams } from '../utils/pagination';
 
 export class PostsController {
   static async getAll(_req: Request, res: Response) {
@@ -10,11 +12,9 @@ export class PostsController {
   }
 
   static async getPaginated(req: Request, res: Response) {
-    const page = parseInt(req.query.page as string) || 1;
-    const limit = parseInt(req.query.limit as string) || 10;
+    const params = getQueryParams(req.query);
+    const [items, total] = await PostsService.getPaginated(params);
 
-    const paginatedUsers = await PostsService.getPaginated(page, limit);
-
-    res.json({ ...paginatedUsers, items: PostsSerializer.list(paginatedUsers.items) });
+    res.json({ items: PostsSerializer.list(items), total });
   }
 }

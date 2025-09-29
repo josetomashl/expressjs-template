@@ -1,21 +1,22 @@
-import type { User } from '../models/User';
-import { UserRepository } from '../repositories/userRepository';
+import { AppDataSource } from '../database/data-source';
+import { UserEntity } from '../database/entities/User';
 import { InMemoryCache } from '../utils/cache';
+import type { IPaginationParams } from '../utils/pagination';
 
 export class UsersService {
-  private static cache = new InMemoryCache<User[]>();
+  private static usersRepository = AppDataSource.getRepository(UserEntity);
+  private static cache = new InMemoryCache<UserEntity[]>();
 
   static async getAll() {
     let list = this.cache.get('users-list');
     if (!list) {
-      // console.log('getting list from user repo');
-      list = await UserRepository.findAll();
+      list = await this.usersRepository.find();
       this.cache.set('users-list', list);
     }
     return list;
   }
 
-  static async getPaginated(page: number, limit: number) {
-    return await UserRepository.findPaginated(page, limit);
+  static async getPaginated({ offset, limit, sort, order }: IPaginationParams) {
+    return await this.usersRepository.findAndCount({ take: limit, skip: offset, order: { [sort]: order } });
   }
 }

@@ -1,34 +1,52 @@
-import type { User } from '../models/User';
+import type { UserEntity } from '../database/entities/User';
+import { PostsSerializer } from './postsSerializer';
 
 export class UserSerializer {
-  static kv(users: User[]) {
+  static kv(users: UserEntity[]) {
     return users.map((user) => ({
       id: user.id,
-      full_name: user.name + ' ' + user.surname
+      full_name: user.getFullName()
     }));
   }
 
-  static list(users: User[]) {
+  static list(users: UserEntity[]) {
     return users.map((user) => ({
       id: user.id,
-      full_name: user.name + ' ' + user.surname,
+      full_name: user.getFullName(),
       email: user.email,
-      is_removed: user.is_removed,
-      created_at: user.created_at
+      role: user.role,
+      createdAt: user.createdAt,
+      updatedAt: user.updatedAt,
+      deletedAt: user.deletedAt
     }));
   }
 
-  static item(user: User) {
+  static item(user: UserEntity) {
+    const posts = PostsSerializer.forUser(user.posts);
+
     return {
       id: user.id,
       name: user.name,
       surname: user.surname,
-      full_name: user.name + ' ' + user.surname,
+      full_name: user.getFullName(),
       email: user.email,
       role: user.role,
-      is_removed: user.is_removed,
-      created_at: user.created_at,
-      modified_at: user.modified_at
+      posts,
+      createdAt: user.createdAt,
+      updatedAt: user.updatedAt,
+      deletedAt: user.deletedAt
+    };
+  }
+
+  static forPost(user: UserEntity) {
+    const posts = PostsSerializer.kv(user.posts);
+
+    return {
+      id: user.id,
+      full_name: user.getFullName(),
+      email: user.email,
+      role: user.role,
+      posts
     };
   }
 }
