@@ -1,6 +1,6 @@
 import z from 'zod';
 
-import { regex } from '../constants/regex';
+import { regex } from '@/constants/regex';
 
 export const loginConstraint = z.object({
   email: z.email(),
@@ -21,3 +21,8 @@ export const registerConstraint = z.object({
     )
 });
 // export type RegisterConstraintType = z.infer<typeof registerConstraint>;
+
+export const refreshTokenConstraint = z.object({
+  refresh_token: z.string()
+});
+// export type refreshTokenConstraintType = z.infer<typeof refreshTokenConstraint>;

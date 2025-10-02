@@ -1,8 +1,8 @@
 import type { Request, Response } from 'express';
 
-import { UserSerializer } from '../serializers/usersSerializer';
-import { UsersService } from '../services/usersService';
-import { getQueryParams } from '../utils/pagination';
+import { UserSerializer } from '@/serializers/usersSerializer';
+import { UsersService } from '@/services/usersService';
+import { getQueryParams } from '@/utils/pagination';
 
 export class UsersController {
   static async getAll(_req: Request, res: Response) {

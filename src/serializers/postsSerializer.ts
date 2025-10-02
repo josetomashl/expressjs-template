@@ -1,4 +1,4 @@
-import type { PostEntity } from '../database/entities/Post';
+import type { PostEntity } from '@/database/entities/Post';
 import { TagsSerializer } from './tagsSerializer';
 import { UserSerializer } from './usersSerializer';
 
@@ -41,13 +41,5 @@ export class PostsSerializer {
       updatedAt: post.updatedAt,
       deletedAt: post.deletedAt
     };
-  }
-
-  static forUser(posts: PostEntity[]) {
-    return posts.map((post) => {
-      const tags = TagsSerializer.kv(post.tags);
-
-      return { id: post.id, title: post.title, tags, status: post.status };
-    });
   }
 }

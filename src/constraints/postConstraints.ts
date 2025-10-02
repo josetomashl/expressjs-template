@@ -1,6 +1,6 @@
 import z from 'zod';
 
-import { PostStatusEnum } from '../database/entities/Post';
+import { PostStatusEnum } from '@/database/entities/Post';
 
 export const createPostConstraint = z.object({
   title: z.string(),

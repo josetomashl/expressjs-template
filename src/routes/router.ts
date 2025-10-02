@@ -1,7 +1,8 @@
 import { Router, type NextFunction, type Request, type Response } from 'express';
 
-import { authenticator } from '../middlewares/authenticator';
-import { logger } from '../middlewares/logger';
+import { environment } from '@/configs/environment';
+import { authenticator } from '@/middlewares/authenticator';
+import { logger } from '@/middlewares/logger';
 import { authRouter } from './authRouter';
 import { postsRouter } from './postsRouter';
 import { usersRouter } from './usersRouter';
@@ -21,7 +22,7 @@ router.get('/health', (_req: Request, res: Response) => {
   res.status(200).json({
     uptime: process.uptime(),
     timestamp: Date.now(),
-    env: process.env.NODE_ENV,
+    env: environment.MODE,
     memoryUsage: process.memoryUsage(),
     availableMemory: process.availableMemory,
     cpuUsage: process.cpuUsage(),

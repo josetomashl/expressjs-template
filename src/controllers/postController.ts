@@ -1,8 +1,8 @@
 import type { Request, Response } from 'express';
 
-import { PostsSerializer } from '../serializers/postsSerializer';
-import { PostsService } from '../services/postsService';
-import { getQueryParams } from '../utils/pagination';
+import { PostsSerializer } from '@/serializers/postsSerializer';
+import { PostsService } from '@/services/postsService';
+import { getQueryParams } from '@/utils/pagination';
 
 export class PostsController {
   static async getAll(_req: Request, res: Response) {

@@ -1,5 +1,6 @@
 import jwt from 'jsonwebtoken';
-import { environment } from '../configs/environment';
+
+import { environment } from '@/configs/environment';
 
 export type TokenPayload = {
   userId: string;
@@ -14,20 +15,48 @@ export function createToken(payload: TokenPayload): string {
   });
 }
 
+export function createRefreshToken(payload: TokenPayload): string {
+  return jwt.sign(payload, environment.JWT_REFRESH_SECRET, {
+    allowInsecureKeySizes: false,
+    expiresIn: '7d'
+  });
+}
+
 export function verifyToken(
   token: string,
   onErrorCallback: (errorValue: string) => void,
   onSuccessCallback: (decodedValue: string) => void
 ) {
   try {
-    if (!token.includes(' ')) {
+    if (!token || !token.trim().includes('Bearer ') || !token.split(' ')[1]) {
       return onErrorCallback('Invalid token');
     }
-    const [type, value] = token.split(' ');
-    if (type !== 'Bearer' || !value) {
-      return onErrorCallback('Invalid token');
-    }
+    const value = token.split(' ')[1];
     jwt.verify(value, environment.JWT_SECRET, { clockTolerance: 60 }, function (err, decoded) {
+      if (err) {
+        return onErrorCallback(err.message);
+      } else if (decoded) {
+        return onSuccessCallback(typeof decoded === 'string' ? decoded : JSON.stringify(decoded));
+      } else {
+        return onErrorCallback('Unknown jwt error');
+      }
+    });
+  } catch {
+    return onErrorCallback('unexpected jwt error');
+  }
+}
+
+export function verifyRefreshToken(
+  token: string,
+  onErrorCallback: (errorValue: string) => void,
+  onSuccessCallback: (decodedValue: string) => void
+) {
+  try {
+    if (!token || !token.trim().includes('Bearer ') || !token.split(' ')[1]) {
+      return onErrorCallback('Invalid token');
+    }
+    const value = token.split(' ')[1];
+    jwt.verify(value, environment.JWT_REFRESH_SECRET, { clockTolerance: 60 }, function (err, decoded) {
       if (err) {
         return onErrorCallback(err.message);
       } else if (decoded) {

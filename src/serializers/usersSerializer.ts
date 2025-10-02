@@ -1,4 +1,4 @@
-import type { UserEntity } from '../database/entities/User';
+import type { UserEntity } from '@/database/entities/User';
 import { PostsSerializer } from './postsSerializer';
 
 export class UserSerializer {
@@ -22,7 +22,7 @@ export class UserSerializer {
   }
 
   static item(user: UserEntity) {
-    const posts = PostsSerializer.forUser(user.posts);
+    const posts = PostsSerializer.list(user.posts);
 
     return {
       id: user.id,

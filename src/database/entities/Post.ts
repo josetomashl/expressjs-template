@@ -15,7 +15,7 @@ import { UserEntity } from './User';
 
 export enum PostStatusEnum {
   DRAFT = 'draft',
-  FINAL = 'final'
+  PUBLISHED = 'published'
 }
 
 @Entity()

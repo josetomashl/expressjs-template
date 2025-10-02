@@ -1,6 +1,6 @@
+import { nodemailerOptions } from '@/configs/nodemailer-options';
 import { createTransport } from 'nodemailer';
 import type Mail from 'nodemailer/lib/mailer';
-import { nodemailerOptions } from '../configs/nodemailer-options';
 
 export const transporter = createTransport(nodemailerOptions);
 
