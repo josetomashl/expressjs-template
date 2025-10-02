@@ -42,7 +42,7 @@
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.3",
     "@types/jsonwebtoken": "^9.0.10",
-    "@types/node": "^24.6.0",
+    "@types/node": "^24.6.2",
     "@types/nodemailer": "^7.0.2",
     "eslint": "^9.36.0",
     "globals": "^16.4.0",
