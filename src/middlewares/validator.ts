@@ -1,6 +1,10 @@
 import type { NextFunction, Request, Response } from 'express';
 import { ZodError, type ZodObject } from 'zod';
 
+import { SendResponse } from '@/utils/response';
+
+export type ValidationError = Record<string, string[]>;
+
 export function validator(schema: ZodObject) {
   return (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -8,14 +12,18 @@ export function validator(schema: ZodObject) {
       next();
     } catch (error) {
       if (error instanceof ZodError) {
-        const errorMessages: { [key: string]: string } = {};
+        const errorMessages: ValidationError = {};
         for (const issue of error.issues) {
-          errorMessages[issue.path.join('.')] = issue.message;
+          const field = issue.path.join('.');
+          if (!errorMessages[field]) {
+            errorMessages[field] = [];
+          }
+          errorMessages[field].push(issue.message);
         }
-        res.status(400).json({ error: 'Invalid data', details: errorMessages });
-      } else {
-        res.status(500).json({ error: 'Internal Server Error' });
+        return SendResponse.validationErrors(res, errorMessages);
       }
+
+      return SendResponse.error(res, 'Invalid request data');
     }
   };
 }

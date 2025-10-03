@@ -1,20 +1,22 @@
 {
-  "include": ["src/**/*"],
   "exclude": ["node_modules"],
   "compilerOptions": {
     "baseUrl": ".",
-    "rootDir": "src",
-    "outDir": "dist",
-    "target": "esnext",
-    "module": "commonjs",
-    // "paths": {
-    //   "@/*": ["src/*"]
-    // },
+    "rootDir": "./src",
+    "outDir": "./dist",
+    "paths": {
+      "@/*": ["src/*"]
+    },
+    "lib": ["es5", "es6"],
+    "target": "es2022",
+    "module": "node16",
+    "moduleResolution": "node16",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
     "sourceMap": true,
     "esModuleInterop": true,
     "strict": true,
     "alwaysStrict": true,
-    "skipLibCheck": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,

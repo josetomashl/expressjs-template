@@ -1,15 +1,14 @@
-import type { User } from '../models/User';
+import type { UserEntity } from '@/database/entities/User';
+import { UserSerializer } from './usersSerializer';
 
 export class AuthSerializer {
-  static item(user: User, token: string) {
+  static item(user: UserEntity, token: string, refreshToken: string) {
+    const userDetails = UserSerializer.item(user);
+
     return {
-      id: user.id,
-      username: user.username,
-      email: user.email,
-      is_removed: Boolean(user.is_removed),
-      created_at: user.created_at,
-      modified_at: user.modified_at,
-      token: token
+      user: userDetails,
+      token,
+      refreshToken
     };
   }
 }
