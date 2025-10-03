@@ -1,6 +1,7 @@
 import type { NextFunction, Request, Response } from 'express';
 
 import { type TokenPayload, verifyToken } from '@/utils/jwt';
+import { SendResponse } from '@/utils/response';
 
 export function authenticator(req: Request, res: Response, next: NextFunction) {
   const token = req.headers.authorization?.trim();
@@ -8,19 +9,19 @@ export function authenticator(req: Request, res: Response, next: NextFunction) {
     verifyToken(
       token,
       (error) => {
-        res.status(401).json(error);
+        SendResponse.unauthorized(res, error);
       },
       (value) => {
         try {
           const parsedValue = JSON.parse(value) as TokenPayload;
-          res.locals.userId = parsedValue.userId;
+          (req as Request & { userId?: string }).userId = parsedValue.userId;
           next();
         } catch {
-          res.status(401).json({ error: 'Unauthorized' });
+          SendResponse.unauthorized(res);
         }
       }
     );
   } else {
-    res.status(401).json({ error: 'Unauthorized. No token found on request headers.' });
+    SendResponse.unauthorized(res, 'No token found on request headers.');
   }
 }

@@ -4,10 +4,13 @@
   "description": "Basic template for ExpressJS applications.",
   "main": "src/main.ts",
   "scripts": {
-    "dev": "nodemon ./src/main.ts",
-    "prod": "node ./dist/main.js",
+    "dev": "nodemon",
+    "lint": "eslint .",
     "build": "tsc && tsc-alias",
-    "lint": "eslint ."
+    "prod": "node dist/main.js",
+    "migrations:generate": "typeorm migration:generate src/database/migrations/ -d src/database/data-source.ts",
+    "migrations:run": "typeorm migration:run -- -d ./src/database/data-source.ts",
+    "migrations:revert": "typeorm migration:revert -- -d src/database/data-source.ts"
   },
   "repository": {
     "type": "git",
@@ -29,7 +32,6 @@
     "helmet": "^8.1.0",
     "jsonwebtoken": "^9.0.2",
     "mysql2": "^3.15.1",
-    "nodemailer": "^7.0.6",
     "reflect-metadata": "^0.2.2",
     "typeorm": "^0.3.27",
     "zod": "^4.1.11"
@@ -43,7 +45,6 @@
     "@types/express": "^5.0.3",
     "@types/jsonwebtoken": "^9.0.10",
     "@types/node": "^24.6.2",
-    "@types/nodemailer": "^7.0.2",
     "eslint": "^9.36.0",
     "globals": "^16.4.0",
     "nodemon": "^3.1.10",

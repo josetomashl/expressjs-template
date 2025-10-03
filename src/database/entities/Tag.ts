@@ -16,4 +16,7 @@ export class TagEntity {
 
   @DeleteDateColumn()
   deletedAt?: Date;
+
+  @Column()
+  awd!: string;
 }

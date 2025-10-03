@@ -5,8 +5,7 @@ import { AuthSerializer } from '@/serializers/authSerializer';
 import { AuthService } from '@/services/authService';
 import { UsersService } from '@/services/usersService';
 import { createRefreshToken, createToken, verifyRefreshToken } from '@/utils/jwt';
-
-// TODO: add refreshToken endpoint
+import { SendResponse } from '@/utils/response';
 
 export class AuthController {
   static async login(req: Request, res: Response) {
@@ -77,7 +76,7 @@ export class AuthController {
         async (userId) => {
           const user = await UsersService.getById(userId);
           if (!user) {
-            throw new Error('Usuario no encontrado.');
+            return SendResponse.notFound(res, 'User');
           }
           const token = createToken({ userId: user.id });
           const refreshToken = createRefreshToken({ userId: user.id });

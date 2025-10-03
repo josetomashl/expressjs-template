@@ -20,4 +20,8 @@ export class PostsService {
   static async getPaginated({ offset, limit, sort, order }: IPaginationParams) {
     return await this.postsRepository.findAndCount({ take: limit, skip: offset, order: { [sort]: order } });
   }
+
+  static async getById(id: string) {
+    return await this.postsRepository.findOneBy({ id });
+  }
 }

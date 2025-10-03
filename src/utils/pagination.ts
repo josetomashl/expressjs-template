@@ -16,7 +16,7 @@ export interface IPaginationParams {
   sort: string;
   order: string;
 }
-export function getQueryParams(query: QueryParams): IPaginationParams {
+export function getPaginationParams(query: QueryParams): IPaginationParams {
   let page = 1;
   if (typeof query.page === 'string' && query.page && !isNaN(parseInt(query.page, 10))) {
     page = Math.abs(parseInt(query.page, 10));

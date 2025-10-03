@@ -6,7 +6,6 @@ export const loginConstraint = z.object({
   email: z.email(),
   password: z.string()
 });
-// export type LoginConstraintType = z.infer<typeof loginConstraint>;
 
 export const registerConstraint = z.object({
   name: z.string(),
@@ -20,9 +19,7 @@ export const registerConstraint = z.object({
       'La contraseña debe componerse de una combinación de 8 caracteres, usando mayúsculas, minúsculas, un número y un símbolo.'
     )
 });
-// export type RegisterConstraintType = z.infer<typeof registerConstraint>;
 
 export const refreshTokenConstraint = z.object({
   refresh_token: z.string()
 });
-// export type refreshTokenConstraintType = z.infer<typeof refreshTokenConstraint>;

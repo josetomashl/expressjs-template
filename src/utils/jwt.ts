@@ -42,7 +42,7 @@ export function verifyToken(
       }
     });
   } catch {
-    return onErrorCallback('unexpected jwt error');
+    return onErrorCallback('Unexpected jwt error');
   }
 }
 
@@ -66,6 +66,6 @@ export function verifyRefreshToken(
       }
     });
   } catch {
-    return onErrorCallback('unexpected jwt error');
+    return onErrorCallback('Unexpected jwt error');
   }
 }
