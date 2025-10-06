@@ -1,6 +1,6 @@
 import type { PostEntity } from '../database/entities/Post';
 import { TagsSerializer } from './tagsSerializer';
-import { UserSerializer } from './usersSerializer';
+import { UsersSerializer } from './usersSerializer';
 
 export class PostsSerializer {
   static kv(posts: PostEntity[]) {
@@ -27,7 +27,7 @@ export class PostsSerializer {
   }
 
   static item(post: PostEntity) {
-    const user = UserSerializer.forPost(post.user);
+    const user = UsersSerializer.forPost(post.user);
     const tags = TagsSerializer.kv(post.tags);
 
     return {

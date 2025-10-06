@@ -6,5 +6,6 @@ const usersRouter = Router();
 
 usersRouter.get('/all', UsersController.getAll);
 usersRouter.get('/', UsersController.getPaginated);
+usersRouter.get('/:id', UsersController.getById);
 
 export { usersRouter };

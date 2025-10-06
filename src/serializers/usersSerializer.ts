@@ -1,7 +1,7 @@
 import type { UserEntity } from '../database/entities/User';
 import { PostsSerializer } from './postsSerializer';
 
-export class UserSerializer {
+export class UsersSerializer {
   static kv(users: UserEntity[]) {
     return users.map((user) => ({
       id: user.id,

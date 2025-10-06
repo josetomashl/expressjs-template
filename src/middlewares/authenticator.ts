@@ -1,27 +1,30 @@
 import type { NextFunction, Request, Response } from 'express';
 
-import { type TokenPayload, verifyToken } from '../utils/jwt';
+import { type TokenPayload, decodeToken } from '../utils/jwt';
 import { SendResponse } from '../utils/response';
 
-export function authenticator(req: Request, res: Response, next: NextFunction) {
+export interface AuthRequest extends Request {
+  userId?: string;
+}
+
+export function authenticator(req: AuthRequest, res: Response, next: NextFunction) {
   const token = req.headers.authorization?.trim();
-  if (token) {
-    verifyToken(
-      token,
-      (error) => {
-        SendResponse.unauthorized(res, error);
-      },
-      (value) => {
-        try {
-          const parsedValue = JSON.parse(value) as TokenPayload;
-          (req as Request & { userId?: string }).userId = parsedValue.userId;
-          next();
-        } catch {
-          SendResponse.unauthorized(res);
-        }
-      }
-    );
-  } else {
-    SendResponse.unauthorized(res, 'No token found on request headers.');
+
+  if (!token?.startsWith('Bearer ') || !token.split(' ')[1]) {
+    return SendResponse.unauthorized(res, 'No token found on request headers.');
+  }
+
+  const tokenValue = token.split(' ')[1];
+
+  try {
+    const decoded = decodeToken(tokenValue);
+    const parsedValue = JSON.parse(decoded) as TokenPayload;
+    req.userId = parsedValue.userId;
+    next();
+  } catch (error) {
+    if (error instanceof Error) {
+      return SendResponse.unauthorized(res, error.message);
+    }
+    return SendResponse.error(res, 'Unexpected JWT error');
   }
 }
