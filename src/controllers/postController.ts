@@ -1,9 +1,9 @@
 import type { Request, Response } from 'express';
 
-import { PostsSerializer } from '@/serializers/postsSerializer';
-import { PostsService } from '@/services/postsService';
-import { getPaginationParams } from '@/utils/pagination';
-import { SendResponse } from '@/utils/response';
+import { PostsSerializer } from '../serializers/postsSerializer';
+import { PostsService } from '../services/postsService';
+import { getPaginationParams } from '../utils/pagination';
+import { SendResponse } from '../utils/response';
 
 export class PostsController {
   static async getAll(_req: Request, res: Response) {

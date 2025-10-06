@@ -1,7 +1,7 @@
-import { AppDataSource } from '@/database/data-source';
-import { PostEntity } from '@/database/entities/Post';
-import { InMemoryCache } from '@/utils/cache';
-import type { IPaginationParams } from '@/utils/pagination';
+import { AppDataSource } from '../database/data-source';
+import { PostEntity } from '../database/entities/Post';
+import { InMemoryCache } from '../utils/cache';
+import type { IPaginationParams } from '../utils/pagination';
 
 export class PostsService {
   private static postsRepository = AppDataSource.getRepository(PostEntity);

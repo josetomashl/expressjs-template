@@ -1,8 +1,8 @@
 import { Router } from 'express';
 
-import { loginConstraint, refreshTokenConstraint, registerConstraint } from '@/constraints/authConstraints';
-import { AuthController } from '@/controllers/authController';
-import { validator } from '@/middlewares/validator';
+import { loginConstraint, refreshTokenConstraint, registerConstraint } from '../constraints/authConstraints';
+import { AuthController } from '../controllers/authController';
+import { validator } from '../middlewares/validator';
 
 const authRouter = Router();
 

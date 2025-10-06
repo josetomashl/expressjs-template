@@ -1,4 +1,4 @@
-import type { PostEntity } from '@/database/entities/Post';
+import type { PostEntity } from '../database/entities/Post';
 import { TagsSerializer } from './tagsSerializer';
 import { UserSerializer } from './usersSerializer';
 

@@ -1,7 +1,7 @@
 import { compare, hash } from 'bcrypt';
 
-import { AppDataSource } from '@/database/data-source';
-import { UserEntity } from '@/database/entities/User';
+import { AppDataSource } from '../database/data-source';
+import { UserEntity } from '../database/entities/User';
 
 export class AuthService {
   private static usersRepository = AppDataSource.getRepository(UserEntity);

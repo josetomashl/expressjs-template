@@ -1,8 +1,8 @@
 import { Router, type NextFunction, type Request, type Response } from 'express';
 
-import { environment } from '@/configs/environment';
-import { authenticator } from '@/middlewares/authenticator';
-import { logger } from '@/middlewares/logger';
+import { environment } from '../configs/environment';
+import { authenticator } from '../middlewares/authenticator';
+import { logger } from '../middlewares/logger';
 import { authRouter } from './authRouter';
 import { postsRouter } from './postsRouter';
 import { usersRouter } from './usersRouter';

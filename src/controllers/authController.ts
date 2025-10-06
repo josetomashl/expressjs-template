@@ -1,11 +1,11 @@
 import type { Request, Response } from 'express';
 
-import { environment } from '@/configs/environment';
-import { AuthSerializer } from '@/serializers/authSerializer';
-import { AuthService } from '@/services/authService';
-import { UsersService } from '@/services/usersService';
-import { createRefreshToken, createToken, verifyRefreshToken } from '@/utils/jwt';
-import { SendResponse } from '@/utils/response';
+import { environment } from '../configs/environment';
+import { AuthSerializer } from '../serializers/authSerializer';
+import { AuthService } from '../services/authService';
+import { UsersService } from '../services/usersService';
+import { createRefreshToken, createToken, verifyRefreshToken } from '../utils/jwt';
+import { SendResponse } from '../utils/response';
 
 export class AuthController {
   static async login(req: Request, res: Response) {

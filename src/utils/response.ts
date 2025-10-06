@@ -1,6 +1,6 @@
 import type { Response } from 'express';
 
-import { ValidationError } from '@/middlewares/validator';
+import { ValidationError } from '../middlewares/validator';
 
 export class SendResponse {
   static success(res: Response, data: unknown) {

@@ -1,4 +1,4 @@
-import { AppDataSource } from '@/database/data-source';
+import { AppDataSource } from '../database/data-source';
 
 export async function killProcess() {
   console.log('SIGTERM signal received: closing HTTP server');

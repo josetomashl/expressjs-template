@@ -1,7 +1,7 @@
-import { AppDataSource } from '@/database/data-source';
-import { UserEntity } from '@/database/entities/User';
-import { InMemoryCache } from '@/utils/cache';
-import type { IPaginationParams } from '@/utils/pagination';
+import { AppDataSource } from '../database/data-source';
+import { UserEntity } from '../database/entities/User';
+import { InMemoryCache } from '../utils/cache';
+import type { IPaginationParams } from '../utils/pagination';
 
 export class UsersService {
   private static usersRepository = AppDataSource.getRepository(UserEntity);

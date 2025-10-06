@@ -1,6 +1,6 @@
 import { Router } from 'express';
 
-import { UsersController } from '@/controllers/usersController';
+import { UsersController } from '../controllers/usersController';
 
 const usersRouter = Router();
 

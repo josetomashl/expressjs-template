@@ -1,7 +1,7 @@
 import type { NextFunction, Request, Response } from 'express';
 
-import { type TokenPayload, verifyToken } from '@/utils/jwt';
-import { SendResponse } from '@/utils/response';
+import { type TokenPayload, verifyToken } from '../utils/jwt';
+import { SendResponse } from '../utils/response';
 
 export function authenticator(req: Request, res: Response, next: NextFunction) {
   const token = req.headers.authorization?.trim();

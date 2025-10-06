@@ -1,4 +1,4 @@
-import type { TagEntity } from '@/database/entities/Tag';
+import type { TagEntity } from '../database/entities/Tag';
 
 export class TagsSerializer {
   static kv(tags: TagEntity[]) {

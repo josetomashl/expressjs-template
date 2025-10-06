@@ -1,8 +1,0 @@
-{
-  "watch": ["src"],
-  "ext": "ts",
-  "exec": "tsc && tsc-alias && node dist/main.js",
-  "env": {
-    "NODE_ENV": "development"
-  }
-}

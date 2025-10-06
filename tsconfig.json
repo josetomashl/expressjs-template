@@ -1,16 +1,12 @@
 {
-  "exclude": ["node_modules"],
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "dist", "test", "public"],
   "compilerOptions": {
     "baseUrl": ".",
     "rootDir": "./src",
     "outDir": "./dist",
-    "paths": {
-      "@/*": ["src/*"]
-    },
-    "lib": ["es5", "es6"],
-    "target": "es2022",
-    "module": "node16",
-    "moduleResolution": "node16",
+    "module": "nodenext",
+    "moduleResolution": "nodenext",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "sourceMap": true,
@@ -21,6 +17,7 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
     "noImplicitAny": true,
+    "noImplicitReturns": true,
     "allowUnreachableCode": false,
     "removeComments": true
   }

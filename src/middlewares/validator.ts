@@ -1,7 +1,7 @@
 import type { NextFunction, Request, Response } from 'express';
 import { ZodError, type ZodObject } from 'zod';
 
-import { SendResponse } from '@/utils/response';
+import { SendResponse } from '../utils/response';
 
 export type ValidationError = Record<string, string[]>;
 

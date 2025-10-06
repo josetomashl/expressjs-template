@@ -1,4 +1,4 @@
-import type { UserEntity } from '@/database/entities/User';
+import type { UserEntity } from '../database/entities/User';
 import { PostsSerializer } from './postsSerializer';
 
 export class UserSerializer {

@@ -1,4 +1,4 @@
-import type { UserEntity } from '@/database/entities/User';
+import type { UserEntity } from '../database/entities/User';
 import { UserSerializer } from './usersSerializer';
 
 export class AuthSerializer {
