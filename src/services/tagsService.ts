@@ -43,8 +43,7 @@ export class TagsService {
   }
 
   static async create(name: string) {
-    const tag = this.tagsRepository.create({ name });
-    return await this.tagsRepository.save(tag);
+    return await this.tagsRepository.save({ name });
   }
 
   static async softRemove(tag: TagEntity) {
