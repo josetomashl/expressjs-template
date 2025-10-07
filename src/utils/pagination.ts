@@ -15,6 +15,7 @@ export interface IPaginationParams {
   offset: number;
   sort: string;
   order: string;
+  search: string;
 }
 export function getPaginationParams(query: QueryParams): IPaginationParams {
   let page = 1;
@@ -38,5 +39,10 @@ export function getPaginationParams(query: QueryParams): IPaginationParams {
     sort = query.sort;
   }
 
-  return { page, limit, order, sort, offset };
+  let search = '%%';
+  if (typeof query.search === 'string' && query.search) {
+    search = '%' + query.search + '%';
+  }
+
+  return { page, limit, order, sort, offset, search };
 }

@@ -17,4 +17,14 @@ export class TagsSerializer {
       deletedAt: tag.deletedAt
     }));
   }
+
+  static item(tag: TagEntity) {
+    return {
+      id: tag.id,
+      name: tag.name,
+      createdAt: tag.createdAt,
+      updatedAt: tag.updatedAt,
+      deletedAt: tag.deletedAt
+    };
+  }
 }

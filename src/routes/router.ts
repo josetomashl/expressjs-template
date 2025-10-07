@@ -5,6 +5,7 @@ import { authenticator } from '../middlewares/authenticator';
 import { logger } from '../middlewares/logger';
 import { authRouter } from './authRouter';
 import { postsRouter } from './postsRouter';
+import { tagsRouter } from './tagsRouter';
 import { usersRouter } from './usersRouter';
 
 const router = Router();
@@ -33,7 +34,7 @@ router.get('/health', (_req: Request, res: Response) => {
 router.use('/auth', authRouter);
 router.use('/users', authenticator, usersRouter);
 router.use('/posts', authenticator, postsRouter);
-// TODO: tags router, controller, service & repository
+router.use('/tags', authenticator, tagsRouter);
 
 router.all(/.*/, (_req: Request, res: Response) => {
   res.status(404).json({

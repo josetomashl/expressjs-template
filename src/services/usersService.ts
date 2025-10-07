@@ -1,3 +1,4 @@
+import { ILike } from 'typeorm';
 import { AppDataSource } from '../database/data-source';
 import { UserEntity } from '../database/entities/User';
 import { InMemoryCache } from '../utils/cache';
@@ -16,11 +17,20 @@ export class UsersService {
     return list;
   }
 
-  static async getPaginated({ offset, limit, sort, order }: IPaginationParams) {
-    return await this.usersRepository.findAndCount({ take: limit, skip: offset, order: { [sort]: order } });
+  static async getPaginated({ offset, limit, sort, order, search }: IPaginationParams) {
+    return await this.usersRepository.findAndCount({
+      take: limit,
+      skip: offset,
+      order: { [sort]: order },
+      where: [{ name: ILike(search) }, { email: ILike(search) }],
+      withDeleted: true
+    });
   }
 
   static async getById(id: string) {
-    return await this.usersRepository.findOneBy({ id });
+    return await this.usersRepository.findOne({
+      where: { id },
+      withDeleted: true
+    });
   }
 }
