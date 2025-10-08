@@ -4,13 +4,7 @@
   "license": "ISC",
   "author": "josetomas.hlopez@gmail.com",
   "description": "Basic template for ExpressJS applications.",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/josetomashl/expressjs-template.git"
-  },
-  "bugs": {
-    "url": "https://github.com/josetomashl/expressjs-template/issues"
-  },
+  "homepage": "https://github.com/josetomashl/expressjs-template#readme",
   "main": "src/main.ts",
   "scripts": {
     "dev": "nodemon --config nodemon-dev.json",
@@ -21,7 +15,6 @@
     "migrations:run": "typeorm migration:run -- -d ./src/database/data-source.ts",
     "migrations:revert": "typeorm migration:revert -- -d src/database/data-source.ts"
   },
-  "homepage": "https://github.com/josetomashl/expressjs-template#readme",
   "dependencies": {
     "bcrypt": "^6.0.0",
     "compression": "^1.8.1",
@@ -51,5 +44,12 @@
     "ts-node": "^10.9.2",
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.46.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/josetomashl/expressjs-template.git"
+  },
+  "bugs": {
+    "url": "https://github.com/josetomashl/expressjs-template/issues"
   }
 }
