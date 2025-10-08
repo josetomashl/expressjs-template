@@ -11,7 +11,6 @@ export class PostsService {
   static async getAll() {
     let list = this.cache.get('posts-list');
     if (!list) {
-      // console.log('getting list from user repo');
       list = await this.postsRepository.find();
       this.cache.set('posts-list', list);
     }

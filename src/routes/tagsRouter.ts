@@ -1,8 +1,8 @@
 import { Router } from 'express';
 
-import { createTagConstraint } from 'src/constraints/tagContraints';
-import { validator } from 'src/middlewares/validator';
+import { createTagConstraint } from '../constraints/tagContraints';
 import { TagsController } from '../controllers/tagsController';
+import { validator } from '../middlewares/validator';
 
 const tagsRouter = Router();
 

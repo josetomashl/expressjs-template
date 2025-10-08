@@ -11,7 +11,6 @@ export class TagsService {
   static async getAll() {
     let list = this.cache.get('tags-list');
     if (!list) {
-      // console.log('getting list from user repo');
       list = await this.tagsRepository.find();
       this.cache.set('tags-list', list);
     }
