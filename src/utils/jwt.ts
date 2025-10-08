@@ -1,9 +1,11 @@
 import { sign, verify } from 'jsonwebtoken';
 
 import { environment } from '../configs/environment';
+import { RolesEnum } from '../database/entities/User';
 
 export type TokenPayload = {
   userId: string;
+  userRole: RolesEnum;
   iat?: number;
   exp?: number;
 };

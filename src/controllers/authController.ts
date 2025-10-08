@@ -10,7 +10,7 @@ export class AuthController {
     const { email, password } = req.body;
     try {
       const user = await AuthService.login(email, password);
-      const token = createToken({ userId: user.id });
+      const token = createToken({ userId: user.id, userRole: user.role });
       res
         .cookie('access_token', token, {
           httpOnly: true,
@@ -33,7 +33,7 @@ export class AuthController {
       if (!user) {
         throw new Error('No se ha podido crear el usuario.');
       }
-      const token = createToken({ userId: user.id });
+      const token = createToken({ userId: user.id, userRole: user.role });
       res
         .cookie('access_token', token, {
           httpOnly: true,

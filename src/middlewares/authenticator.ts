@@ -1,10 +1,12 @@
 import type { NextFunction, Request, Response } from 'express';
 
+import { RolesEnum } from '../database/entities/User';
 import { type TokenPayload, decodeToken } from '../utils/jwt';
 import { SendResponse } from '../utils/response';
 
 export interface AuthRequest extends Request {
-  userId?: string;
+  userId: string;
+  userRole: RolesEnum;
 }
 
 export function authenticator(req: AuthRequest, res: Response, next: NextFunction) {
@@ -20,6 +22,7 @@ export function authenticator(req: AuthRequest, res: Response, next: NextFunctio
     const decoded = decodeToken(tokenValue);
     const parsedValue = JSON.parse(decoded) as TokenPayload;
     req.userId = parsedValue.userId;
+    req.userRole = parsedValue.userRole;
     next();
   } catch (error) {
     if (error instanceof Error) {

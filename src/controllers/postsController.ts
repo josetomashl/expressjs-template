@@ -1,9 +1,9 @@
 import type { Request, Response } from 'express';
 
-import { AuthRequest } from 'src/middlewares/authenticator';
-import { UsersService } from 'src/services/usersService';
+import type { AuthRequest } from '../middlewares/authenticator';
 import { PostsSerializer } from '../serializers/postsSerializer';
 import { PostsService } from '../services/postsService';
+import { UsersService } from '../services/usersService';
 import { getPaginationParams } from '../utils/pagination';
 import { SendResponse } from '../utils/response';
 
@@ -42,9 +42,6 @@ export class PostsController {
       return SendResponse.badRequest(res, `Post with title "${title}" already exists`);
     }
 
-    if (!req.userId) {
-      return SendResponse.unauthorized(res);
-    }
     const user = await UsersService.getById(req.userId);
     if (!user) {
       return SendResponse.notFound(res, 'User');

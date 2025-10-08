@@ -1,8 +1,8 @@
 import { Router } from 'express';
 
-import { createPostConstraint, updatePostContraint } from 'src/constraints/postConstraints';
-import { validator } from 'src/middlewares/validator';
+import { createPostConstraint, updatePostContraint } from '../constraints/postConstraints';
 import { PostsController } from '../controllers/postsController';
+import { validator } from '../middlewares/validator';
 
 const postsRouter = Router();
 
