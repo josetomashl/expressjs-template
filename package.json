@@ -1,7 +1,16 @@
 {
   "name": "expressjs-template",
   "version": "1.0.0",
+  "license": "ISC",
+  "author": "josetomas.hlopez@gmail.com",
   "description": "Basic template for ExpressJS applications.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/josetomashl/expressjs-template.git"
+  },
+  "bugs": {
+    "url": "https://github.com/josetomashl/expressjs-template/issues"
+  },
   "main": "src/main.ts",
   "scripts": {
     "dev": "nodemon --config nodemon-dev.json",
@@ -11,15 +20,6 @@
     "migrations:generate": "typeorm migration:generate src/database/migrations/ -d src/database/data-source.ts",
     "migrations:run": "typeorm migration:run -- -d ./src/database/data-source.ts",
     "migrations:revert": "typeorm migration:revert -- -d src/database/data-source.ts"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/josetomashl/expressjs-template.git"
-  },
-  "author": "josetomas.hlopez@gmail.com",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/josetomashl/expressjs-template/issues"
   },
   "homepage": "https://github.com/josetomashl/expressjs-template#readme",
   "dependencies": {
@@ -31,7 +31,7 @@
     "express-rate-limit": "^8.1.0",
     "helmet": "^8.1.0",
     "jsonwebtoken": "^9.0.2",
-    "mysql2": "^3.15.1",
+    "mysql2": "^3.15.2",
     "reflect-metadata": "^0.2.2",
     "typeorm": "^0.3.27",
     "zod": "^4.1.12"
