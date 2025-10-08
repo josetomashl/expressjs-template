@@ -1,7 +1,7 @@
 import { ILike } from 'typeorm';
 
-import { Tag } from 'src/database/entities/Tag';
 import { AppDataSource } from '../database/data-source';
+import { Tag } from '../database/entities/Tag';
 import { InMemoryCache } from '../utils/cache';
 import type { IPaginationParams } from '../utils/pagination';
 

@@ -23,7 +23,7 @@ AppDataSource.initialize()
   })
   .catch((error) => console.error('TypeORM connection error: ', error));
 
-function bootstrap() {
+export default function bootstrap() {
   const app = express();
 
   // Serve public files
