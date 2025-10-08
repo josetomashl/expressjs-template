@@ -46,10 +46,10 @@ export class User {
   @CreateDateColumn()
   createdAt!: Date;
 
-  @UpdateDateColumn({ nullable: true })
-  updatedAt?: Date;
+  @UpdateDateColumn()
+  updatedAt!: Date;
 
-  @DeleteDateColumn({ nullable: true })
+  @DeleteDateColumn()
   deletedAt?: Date;
 
   getFullName(): string {
