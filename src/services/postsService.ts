@@ -1,12 +1,13 @@
 import { ILike } from 'typeorm';
+
 import { AppDataSource } from '../database/data-source';
-import { PostEntity } from '../database/entities/Post';
+import { Post } from '../database/entities/Post';
 import { InMemoryCache } from '../utils/cache';
 import type { IPaginationParams } from '../utils/pagination';
 
 export class PostsService {
-  private static postsRepository = AppDataSource.getRepository(PostEntity);
-  private static cache = new InMemoryCache<PostEntity[]>();
+  private static postsRepository = AppDataSource.getRepository(Post);
+  private static cache = new InMemoryCache<Post[]>();
 
   static async getAll() {
     let list = this.cache.get('posts-list');

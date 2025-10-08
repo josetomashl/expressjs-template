@@ -1,14 +1,14 @@
-import type { TagEntity } from '../database/entities/Tag';
+import { Tag } from '../database/entities/Tag';
 
 export class TagsSerializer {
-  static kv(tags: TagEntity[]) {
+  static kv(tags: Tag[]) {
     return tags.map((tag) => ({
       id: tag.id,
       name: tag.name
     }));
   }
 
-  static list(tags: TagEntity[]) {
+  static list(tags: Tag[]) {
     return tags.map((tag) => ({
       id: tag.id,
       name: tag.name,
@@ -18,7 +18,7 @@ export class TagsSerializer {
     }));
   }
 
-  static item(tag: TagEntity) {
+  static item(tag: Tag) {
     return {
       id: tag.id,
       name: tag.name,

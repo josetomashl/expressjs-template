@@ -10,8 +10,8 @@ import {
   UpdateDateColumn
 } from 'typeorm';
 
-import { TagEntity } from './Tag';
-import { UserEntity } from './User';
+import { Tag } from './Tag';
+import { User } from './User';
 
 export enum PostStatusEnum {
   DRAFT = 'draft',
@@ -19,7 +19,7 @@ export enum PostStatusEnum {
 }
 
 @Entity()
-export class PostEntity {
+export class Post {
   @PrimaryGeneratedColumn('uuid')
   id!: string;
 
@@ -36,19 +36,19 @@ export class PostEntity {
   })
   status!: PostStatusEnum;
 
-  @ManyToOne(() => UserEntity, (user) => user.posts, { cascade: true })
-  user!: UserEntity;
+  @ManyToOne(() => User, (user) => user.posts, { cascade: true })
+  user!: User;
 
-  @ManyToMany(() => TagEntity, { cascade: true })
+  @ManyToMany(() => Tag, { cascade: true })
   @JoinTable()
-  tags!: TagEntity[];
+  tags!: Tag[];
 
   @CreateDateColumn()
   createdAt!: Date;
 
-  @UpdateDateColumn()
+  @UpdateDateColumn({ nullable: true })
   updatedAt?: Date;
 
-  @DeleteDateColumn()
+  @DeleteDateColumn({ nullable: true })
   deletedAt?: Date;
 }

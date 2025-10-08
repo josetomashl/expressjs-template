@@ -1,19 +1,22 @@
 import { Column, CreateDateColumn, DeleteDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
 
 @Entity()
-export class TagEntity {
+export class Tag {
   @PrimaryGeneratedColumn('uuid')
   id!: string;
 
   @Column({ unique: true })
   name!: string;
 
+  @Column({ nullable: true })
+  description?: string;
+
   @CreateDateColumn()
   createdAt!: Date;
 
-  @UpdateDateColumn()
+  @UpdateDateColumn({ nullable: true })
   updatedAt?: Date;
 
-  @DeleteDateColumn()
+  @DeleteDateColumn({ nullable: true })
   deletedAt?: Date;
 }

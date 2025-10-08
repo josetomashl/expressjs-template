@@ -1,12 +1,13 @@
 import { ILike } from 'typeorm';
+
+import { Tag } from 'src/database/entities/Tag';
 import { AppDataSource } from '../database/data-source';
-import { TagEntity } from '../database/entities/Tag';
 import { InMemoryCache } from '../utils/cache';
 import type { IPaginationParams } from '../utils/pagination';
 
 export class TagsService {
-  private static tagsRepository = AppDataSource.getRepository(TagEntity);
-  private static cache = new InMemoryCache<TagEntity[]>();
+  private static tagsRepository = AppDataSource.getRepository(Tag);
+  private static cache = new InMemoryCache<Tag[]>();
 
   static async getAll() {
     let list = this.cache.get('tags-list');
@@ -41,19 +42,23 @@ export class TagsService {
     });
   }
 
-  static async create(name: string) {
-    return await this.tagsRepository.save({ name });
+  static async create(name: string, description: string) {
+    return await this.tagsRepository.save({ name, description });
   }
 
-  static async softRemove(tag: TagEntity) {
+  static async update(tag: Tag) {
+    return await this.tagsRepository.save(tag);
+  }
+
+  static async softRemove(tag: Tag) {
     return await this.tagsRepository.softRemove(tag);
   }
 
-  static async recover(tag: TagEntity) {
+  static async recover(tag: Tag) {
     return await this.tagsRepository.recover(tag);
   }
 
-  static async remove(tag: TagEntity) {
+  static async remove(tag: Tag) {
     return await this.tagsRepository.remove(tag);
   }
 }

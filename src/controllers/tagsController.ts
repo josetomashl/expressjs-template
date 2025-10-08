@@ -34,13 +34,33 @@ export class TagsController {
   }
 
   static async create(req: Request, res: Response) {
-    const { name } = req.body;
+    const { name, description } = req.body;
     const previousTag = await TagsService.getByName(name);
     if (previousTag) {
       return SendResponse.badRequest(res, `Tag with name "${name}" already exists`);
     }
 
-    const tag = await TagsService.create(name);
+    const tag = await TagsService.create(name, description);
+
+    return SendResponse.success(res, TagsSerializer.item(tag));
+  }
+
+  static async update(req: Request, res: Response) {
+    const { name, description } = req.body;
+    const previousTag = await TagsService.getByName(name);
+    if (!previousTag) {
+      return SendResponse.notFound(res, 'Tag');
+    }
+
+    if (previousTag.name !== name) {
+      previousTag.name = name;
+    }
+
+    if (previousTag.description !== description) {
+      previousTag.description = description;
+    }
+
+    const tag = await TagsService.update(previousTag);
 
     return SendResponse.success(res, TagsSerializer.item(tag));
   }

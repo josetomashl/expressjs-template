@@ -8,7 +8,7 @@ import {
   UpdateDateColumn
 } from 'typeorm';
 
-import { PostEntity } from './Post';
+import { Post } from './Post';
 
 export enum RolesEnum {
   ADMIN = 'admin',
@@ -17,7 +17,7 @@ export enum RolesEnum {
 }
 
 @Entity()
-export class UserEntity {
+export class User {
   @PrimaryGeneratedColumn('uuid')
   id!: string;
 
@@ -40,16 +40,16 @@ export class UserEntity {
   })
   role!: RolesEnum;
 
-  @OneToMany(() => PostEntity, (post) => post.user)
-  posts!: PostEntity[];
+  @OneToMany(() => Post, (post) => post.user)
+  posts!: Post[];
 
   @CreateDateColumn()
   createdAt!: Date;
 
-  @UpdateDateColumn()
+  @UpdateDateColumn({ nullable: true })
   updatedAt?: Date;
 
-  @DeleteDateColumn()
+  @DeleteDateColumn({ nullable: true })
   deletedAt?: Date;
 
   getFullName(): string {

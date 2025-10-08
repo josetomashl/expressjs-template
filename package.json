@@ -11,9 +11,11 @@
     "lint": "eslint .",
     "build": "tsc",
     "prod": "nodemon --config nodemon-prod.json",
-    "migrations:generate": "typeorm migration:generate src/database/migrations/ -d src/database/data-source.ts",
-    "migrations:run": "typeorm migration:run -- -d ./src/database/data-source.ts",
-    "migrations:revert": "typeorm migration:revert -- -d src/database/data-source.ts"
+    "typeorm": "typeorm-ts-node-commonjs -d src/database/data-source.ts",
+    "migration:generate": "npm run build && npm run typeorm -- migration:generate",
+    "migration:run": "npm run typeorm -- migration:run",
+    "migration:revert": "npm run typeorm -- migration:revert",
+    "migration:show": "npm run typeorm -- migration:show"
   },
   "dependencies": {
     "bcrypt": "^6.0.0",
