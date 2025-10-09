@@ -35,14 +35,14 @@ export class PostsController {
     return SendResponse.success(res, PostsSerializer.item(post));
   }
 
-  static async create(req: AuthRequest, res: Response) {
+  static async create(req: Request, res: Response) {
     const { title, content, status, tags } = req.body;
     const previousPost = await PostsService.getByTitle(title);
     if (previousPost) {
       return SendResponse.badRequest(res, `Post with title "${title}" already exists`);
     }
 
-    const user = await UsersService.getById(req.userId);
+    const user = await UsersService.getById((req as AuthRequest).userId);
     if (!user) {
       return SendResponse.notFound(res, 'User');
     }

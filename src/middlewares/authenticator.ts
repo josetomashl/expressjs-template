@@ -9,7 +9,7 @@ export interface AuthRequest extends Request {
   userRole: RolesEnum;
 }
 
-export function authenticator(req: AuthRequest, res: Response, next: NextFunction) {
+export function authenticator(req: Request, res: Response, next: NextFunction) {
   const token = req.headers.authorization?.trim();
 
   if (!token?.startsWith('Bearer ') || !token.split(' ')[1]) {
@@ -21,8 +21,8 @@ export function authenticator(req: AuthRequest, res: Response, next: NextFunctio
   try {
     const decoded = decodeToken(tokenValue);
     const parsedValue = JSON.parse(decoded) as TokenPayload;
-    req.userId = parsedValue.userId;
-    req.userRole = parsedValue.userRole;
+    (req as AuthRequest).userId = parsedValue.userId;
+    (req as AuthRequest).userRole = parsedValue.userRole;
     next();
   } catch (error) {
     if (error instanceof Error) {
