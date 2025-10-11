@@ -1,25 +1,33 @@
 import type { NextFunction, Request, Response } from 'express';
-import { type TokenPayload, verifyToken } from '../utils/jwt';
+
+import { RolesEnum } from '../database/entities/User';
+import { type TokenPayload, decodeToken } from '../utils/jwt';
+import { SendResponse } from '../utils/response';
+
+export interface AuthRequest extends Request {
+  userId: string;
+  userRole: RolesEnum;
+}
 
 export function authenticator(req: Request, res: Response, next: NextFunction) {
   const token = req.headers.authorization?.trim();
-  if (token) {
-    verifyToken(
-      token,
-      (error) => {
-        res.status(401).json(error);
-      },
-      (value) => {
-        try {
-          const parsedValue = JSON.parse(value) as TokenPayload;
-          res.locals.userId = parsedValue.userId;
-          next();
-        } catch {
-          res.status(401).json({ error: 'Unauthorized' });
-        }
-      }
-    );
-  } else {
-    res.status(401).json({ error: 'Unauthorized. No token found on request headers.' });
+
+  if (!token?.startsWith('Bearer ') || !token.split(' ')[1]) {
+    return SendResponse.unauthorized(res, 'No token found on request headers.');
+  }
+
+  const tokenValue = token.split(' ')[1];
+
+  try {
+    const decoded = decodeToken(tokenValue);
+    const parsedValue = JSON.parse(decoded) as TokenPayload;
+    (req as AuthRequest).userId = parsedValue.userId;
+    (req as AuthRequest).userRole = parsedValue.userRole;
+    next();
+  } catch (error) {
+    if (error instanceof Error) {
+      return SendResponse.unauthorized(res, error.message);
+    }
+    return SendResponse.error(res, 'Unexpected JWT error');
   }
 }
