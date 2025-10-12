@@ -19,7 +19,6 @@ export class PostsSerializer {
         title: post.title,
         tags,
         status: post.status,
-        createdAt: post.createdAt,
         updatedAt: post.updatedAt,
         deletedAt: post.deletedAt
       };

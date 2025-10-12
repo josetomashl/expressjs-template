@@ -12,7 +12,7 @@ export class TagsSerializer {
     return tags.map((tag) => ({
       id: tag.id,
       name: tag.name,
-      createdAt: tag.createdAt,
+      description: tag.description,
       updatedAt: tag.updatedAt,
       deletedAt: tag.deletedAt
     }));
@@ -22,6 +22,7 @@ export class TagsSerializer {
     return {
       id: tag.id,
       name: tag.name,
+      description: tag.description,
       createdAt: tag.createdAt,
       updatedAt: tag.updatedAt,
       deletedAt: tag.deletedAt

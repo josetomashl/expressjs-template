@@ -15,7 +15,6 @@ export class UsersSerializer {
       full_name: user.getFullName(),
       email: user.email,
       role: user.role,
-      createdAt: user.createdAt,
       updatedAt: user.updatedAt,
       deletedAt: user.deletedAt
     }));
