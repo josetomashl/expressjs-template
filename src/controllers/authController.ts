@@ -7,9 +7,8 @@ import { createToken } from '../utils/jwt';
 
 export class AuthController {
   static async login(req: Request, res: Response) {
-    const { email, password } = req.body;
     try {
-      const user = await AuthService.login(email, password);
+      const user = await AuthService.login(req.body);
       const token = createToken({ userId: user.id, userRole: user.role });
       res
         .cookie('access_token', token, {
@@ -27,9 +26,8 @@ export class AuthController {
   }
 
   static async register(req: Request, res: Response) {
-    const { name, surname, email, password } = req.body;
     try {
-      const user = await AuthService.register(name.trim(), surname.trim(), email.trim(), password.trim());
+      const user = await AuthService.register(req.body);
       if (!user) {
         throw new Error('No se ha podido crear el usuario.');
       }

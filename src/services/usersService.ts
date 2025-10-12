@@ -1,5 +1,6 @@
 import { ILike } from 'typeorm';
 
+import type { CreateUserDTO } from '../constraints/userContraints';
 import { AppDataSource } from '../database/data-source';
 import { User } from '../database/entities/User';
 import { InMemoryCache } from '../utils/cache';
@@ -33,5 +34,32 @@ export class UsersService {
       where: { id },
       withDeleted: true
     });
+  }
+
+  static async getByEmail(email: string) {
+    return await this.usersRepository.findOne({
+      where: { email },
+      withDeleted: true
+    });
+  }
+
+  static async create(data: CreateUserDTO) {
+    return await this.usersRepository.save({ ...data });
+  }
+
+  static async update(tag: User) {
+    return await this.usersRepository.save(tag);
+  }
+
+  static async softRemove(tag: User) {
+    return await this.usersRepository.softRemove(tag);
+  }
+
+  static async recover(tag: User) {
+    return await this.usersRepository.recover(tag);
+  }
+
+  static async remove(tag: User) {
+    return await this.usersRepository.remove(tag);
   }
 }

@@ -1,4 +1,6 @@
 {
+  "verbose": true,
+  "watch": ["dist"],
   "exec": "node dist/main.js",
   "env": {
     "NODE_ENV": "production"

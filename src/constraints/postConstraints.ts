@@ -8,6 +8,7 @@ export const createPostConstraint = z.object({
   status: z.enum(PostStatusEnum),
   tags: z.array(z.string())
 });
+export type CreatePostDTO = z.infer<typeof createPostConstraint>;
 
 export const updatePostContraint = z.object({
   title: z.string(),
@@ -16,3 +17,4 @@ export const updatePostContraint = z.object({
   tags: z.array(z.string()),
   user_id: z.string().optional()
 });
+export type UpdatePostDTO = z.infer<typeof updatePostContraint>;

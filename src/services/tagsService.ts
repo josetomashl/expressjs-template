@@ -1,5 +1,6 @@
 import { ILike } from 'typeorm';
 
+import type { CreateTagDTO } from '../constraints/tagContraints';
 import { AppDataSource } from '../database/data-source';
 import { Tag } from '../database/entities/Tag';
 import { InMemoryCache } from '../utils/cache';
@@ -42,8 +43,8 @@ export class TagsService {
     });
   }
 
-  static async create(name: string, description: string) {
-    return await this.tagsRepository.save({ name, description });
+  static async create(data: CreateTagDTO) {
+    return await this.tagsRepository.save(data);
   }
 
   static async update(tag: Tag) {

@@ -1,5 +1,6 @@
 import type { Request, Response } from 'express';
 
+import type { CreateTagDTO, UpdateTagDTO } from '../constraints/tagContraints';
 import { TagsSerializer } from '../serializers/tagsSerializer';
 import { TagsService } from '../services/tagsService';
 import { getPaginationParams } from '../utils/pagination';
@@ -34,33 +35,42 @@ export class TagsController {
   }
 
   static async create(req: Request, res: Response) {
-    const { name, description } = req.body;
-    const previousTag = await TagsService.getByName(name);
-    if (previousTag) {
-      return SendResponse.badRequest(res, `Tag with name "${name}" already exists`);
+    const payload = { ...req.body } as CreateTagDTO;
+
+    const sameNameTag = await TagsService.getByName(payload.name);
+    if (sameNameTag) {
+      return SendResponse.badRequest(res, `Tag with name "${payload.name}" already exists.`);
     }
 
-    const tag = await TagsService.create(name, description);
+    const tag = await TagsService.create(payload);
 
     return SendResponse.success(res, TagsSerializer.item(tag));
   }
 
   static async update(req: Request, res: Response) {
-    const { name, description } = req.body;
-    const previousTag = await TagsService.getByName(name);
-    if (!previousTag) {
+    const { id } = req.params;
+    if (!id) {
+      return SendResponse.badRequest(res, 'Tag ID not provided.');
+    }
+    const originalTag = await TagsService.getById(id);
+    if (!originalTag) {
       return SendResponse.notFound(res, 'Tag');
     }
-
-    if (previousTag.name !== name) {
-      previousTag.name = name;
+    const { name, description } = req.body as UpdateTagDTO;
+    const sameNameTag = await TagsService.getByName(name);
+    if (sameNameTag) {
+      return SendResponse.badRequest(res, `Tag with name "${name}" already exists.`);
     }
 
-    if (previousTag.description !== description) {
-      previousTag.description = description;
+    if (originalTag.name !== name) {
+      originalTag.name = name;
     }
 
-    const tag = await TagsService.update(previousTag);
+    if (originalTag.description !== description) {
+      originalTag.description = description;
+    }
+
+    const tag = await TagsService.update(originalTag);
 
     return SendResponse.success(res, TagsSerializer.item(tag));
   }
