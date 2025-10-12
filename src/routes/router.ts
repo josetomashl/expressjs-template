@@ -1,8 +1,11 @@
 import { Router, type NextFunction, type Request, type Response } from 'express';
+
+import { environment } from '../configs/environment';
 import { authenticator } from '../middlewares/authenticator';
-import { logger } from '../middlewares/logger';
 import { authRouter } from './authRouter';
-import { userRouter } from './userRouter';
+import { postsRouter } from './postsRouter';
+import { tagsRouter } from './tagsRouter';
+import { usersRouter } from './usersRouter';
 
 const router = Router();
 
@@ -12,23 +15,20 @@ router.use((_req: Request, res: Response, next: NextFunction) => {
   next();
 });
 
-// Custom requests logger
-router.use(logger);
-
 router.get('/health', (_req: Request, res: Response) => {
   res.status(200).json({
     uptime: process.uptime(),
     timestamp: Date.now(),
-    env: process.env.NODE_ENV,
+    env: environment.MODE,
     memoryUsage: process.memoryUsage(),
-    availableMemory: process.availableMemory,
-    cpuUsage: process.cpuUsage(),
-    versions: process.versions
+    cpuUsage: process.cpuUsage()
   });
 });
+
 router.use('/auth', authRouter);
-router.use('/users', authenticator, userRouter);
-// Add routes here, private routes add auth middleware before passing router
+router.use('/users', authenticator, usersRouter);
+router.use('/posts', authenticator, postsRouter);
+router.use('/tags', authenticator, tagsRouter);
 
 router.all(/.*/, (_req: Request, res: Response) => {
   res.status(404).json({

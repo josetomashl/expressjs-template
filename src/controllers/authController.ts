@@ -1,18 +1,19 @@
 import type { Request, Response } from 'express';
+
+import { environment } from '../configs/environment';
 import { AuthSerializer } from '../serializers/authSerializer';
 import { AuthService } from '../services/authService';
 import { createToken } from '../utils/jwt';
 
 export class AuthController {
   static async login(req: Request, res: Response) {
-    const { email, password } = req.body;
     try {
-      const user = await AuthService.login(email, password);
-      const token = createToken({ userId: user.id });
+      const user = await AuthService.login(req.body);
+      const token = createToken({ userId: user.id, userRole: user.role });
       res
         .cookie('access_token', token, {
           httpOnly: true,
-          secure: process.env.NODE_ENV === 'production',
+          secure: environment.MODE === 'production',
           sameSite: 'strict',
           maxAge: 1000 * 60 * 60 * 24
         })
@@ -25,17 +26,16 @@ export class AuthController {
   }
 
   static async register(req: Request, res: Response) {
-    const { username, email, password } = req.body;
     try {
-      const user = await AuthService.register(username.trim(), email.trim(), password.trim());
+      const user = await AuthService.register(req.body);
       if (!user) {
-        throw new Error('Error al crear el usuario wtf.');
+        throw new Error('No se ha podido crear el usuario.');
       }
-      const token = createToken({ userId: user.id });
+      const token = createToken({ userId: user.id, userRole: user.role });
       res
         .cookie('access_token', token, {
           httpOnly: true,
-          secure: process.env.NODE_ENV === 'production',
+          secure: environment.MODE === 'production',
           sameSite: 'strict',
           maxAge: 1000 * 60 * 60 * 24
         })

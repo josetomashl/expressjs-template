@@ -1,9 +1,10 @@
-import { NextFunction, Request, Response } from 'express';
+import type { NextFunction, Request, Response } from 'express';
+
+import { SendResponse } from '../utils/response';
 
 export function errorHandler(err: Error, _req: Request, res: Response, next: NextFunction) {
   if (res.headersSent) {
-    console.error(err);
     return next(err);
   }
-  res.status(500).send({ error: err.message });
+  return SendResponse.error(res, err.message);
 }

@@ -1,8 +1,8 @@
-import { transporter } from './mailer';
+import { AppDataSource } from '../database/data-source';
 
 export async function killProcess() {
   console.log('SIGTERM signal received: closing HTTP server');
-  await transporter.close();
-  console.log('Nodemailer transporter closed.');
+  await AppDataSource.destroy();
+  console.log('Database connection destroyed.');
   process.exit(0);
 }

@@ -1,24 +1,22 @@
 {
   "name": "expressjs-template",
   "version": "1.0.0",
+  "license": "ISC",
+  "author": "josetomas.hlopez@gmail.com",
   "description": "Basic template for ExpressJS applications.",
+  "homepage": "https://github.com/josetomashl/expressjs-template#readme",
   "main": "src/main.ts",
   "scripts": {
-    "dev": "nodemon src/main.ts",
-    "prod": "node dist/main.js",
+    "dev": "nodemon --config nodemon-dev.json",
+    "lint": "eslint .",
     "build": "tsc",
-    "lint": "eslint ."
+    "prod": "nodemon --config nodemon-prod.json",
+    "typeorm": "typeorm-ts-node-commonjs -d src/database/data-source.ts",
+    "migration:generate": "npm run build && npm run typeorm -- migration:generate",
+    "migration:run": "npm run typeorm -- migration:run",
+    "migration:revert": "npm run typeorm -- migration:revert",
+    "migration:show": "npm run typeorm -- migration:show"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/josetomashl/expressjs-template.git"
-  },
-  "author": "josetomas.hlopez@gmail.com",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/josetomashl/expressjs-template/issues"
-  },
-  "homepage": "https://github.com/josetomashl/expressjs-template#readme",
   "dependencies": {
     "bcrypt": "^6.0.0",
     "compression": "^1.8.1",
@@ -28,25 +26,32 @@
     "express-rate-limit": "^8.1.0",
     "helmet": "^8.1.0",
     "jsonwebtoken": "^9.0.2",
-    "mysql2": "^3.15.0",
-    "nodemailer": "^7.0.6",
-    "zod": "^4.1.9"
+    "mysql2": "^3.15.2",
+    "reflect-metadata": "^0.2.2",
+    "typeorm": "^0.3.27",
+    "zod": "^4.1.12"
   },
   "devDependencies": {
-    "@eslint/js": "^9.35.0",
+    "@eslint/js": "^9.37.0",
     "@types/bcrypt": "^6.0.0",
     "@types/compression": "^1.8.1",
     "@types/cookie-parser": "^1.4.9",
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.3",
     "@types/jsonwebtoken": "^9.0.10",
-    "@types/node": "^24.5.2",
-    "@types/nodemailer": "^7.0.1",
-    "eslint": "^9.35.0",
+    "@types/node": "^24.7.2",
+    "eslint": "^9.37.0",
     "globals": "^16.4.0",
     "nodemon": "^3.1.10",
     "ts-node": "^10.9.2",
-    "typescript": "^5.9.2",
-    "typescript-eslint": "^8.44.0"
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.46.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/josetomashl/expressjs-template.git"
+  },
+  "bugs": {
+    "url": "https://github.com/josetomashl/expressjs-template/issues"
   }
 }
