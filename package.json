@@ -29,13 +29,13 @@
     "express-rate-limit": "^8.2.1",
     "helmet": "^8.1.0",
     "jsonwebtoken": "^9.0.3",
-    "mysql2": "^3.17.1",
+    "mysql2": "^3.17.4",
     "reflect-metadata": "^0.2.2",
     "typeorm": "^0.3.28",
     "zod": "^4.3.6"
   },
   "devDependencies": {
-    "@eslint/js": "^9.39.2",
+    "@eslint/js": "^9.39.3",
     "@types/bcrypt": "^6.0.0",
     "@types/compression": "^1.8.1",
     "@types/cookie-parser": "^1.4.10",
@@ -43,12 +43,12 @@
     "@types/express": "^5.0.6",
     "@types/jsonwebtoken": "^9.0.10",
     "@types/node": "^24.10.13",
-    "eslint": "^9.39.2",
+    "eslint": "^9.39.3",
     "globals": "^17.3.0",
-    "nodemon": "^3.1.11",
+    "nodemon": "^3.1.14",
     "ts-node": "^10.9.2",
     "typescript": "^5.9.3",
-    "typescript-eslint": "^8.55.0"
+    "typescript-eslint": "^8.56.0"
   },
   "repository": {
     "type": "git",
