@@ -25,32 +25,30 @@
     "compression": "^1.8.1",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.6",
-    "cors": "^2.8.6",
     "express": "^5.2.1",
-    "express-rate-limit": "^8.5.2",
-    "helmet": "^8.2.0",
+    "express-rate-limit": "^8.6.0",
+    "helmet": "^8.3.0",
     "jsonwebtoken": "^9.0.3",
-    "mysql2": "^3.22.5",
+    "mysql2": "^3.23.1",
     "reflect-metadata": "^0.2.2",
-    "typeorm": "^0.3.30",
+    "typeorm": "^0.3.31",
     "zod": "^4.4.3"
   },
   "devDependencies": {
-    "@eslint/js": "^9.39.4",
-    "@eslint/js": "^9.39.4",
+    "@eslint/js": "^9.39.5",
     "@types/bcrypt": "^6.0.0",
     "@types/compression": "^1.8.1",
     "@types/cookie-parser": "^1.4.10",
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.6",
     "@types/jsonwebtoken": "^9.0.10",
-    "@types/node": "^24.13.2",
-    "eslint": "^9.39.4",
+    "@types/node": "^26.1.1",
+    "eslint": "^9.39.5",
     "globals": "^17.7.0",
     "nodemon": "^3.1.14",
     "ts-node": "^10.9.2",
     "typescript": "^6.0.3",
-    "typescript-eslint": "^8.62.1"
+    "typescript-eslint": "^8.65.0"
   },
   "repository": {
     "type": "git",
@@ -58,5 +56,8 @@
   },
   "bugs": {
     "url": "https://github.com/josetomashl/expressjs-template/issues"
+  },
+  "allowScripts": {
+    "bcrypt@6.0.0": true
   }
 }
